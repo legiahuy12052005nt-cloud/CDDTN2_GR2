@@ -1,0 +1,17 @@
+{
+ "theme": "neutral",
+ "fontFamily": "DejaVu Sans, Arial, sans-serif",
+ "sequence": {
+  "useMaxWidth": false,
+  "mirrorActors": false,
+  "actorMargin": 25,
+  "width": 135,
+  "boxMargin": 6,
+  "messageMargin": 38,
+  "noteMargin": 10,
+  "wrap": false,
+  "messageFontSize": 17,
+  "actorFontSize": 17,
+  "noteFontSize": 16
+ }
+}

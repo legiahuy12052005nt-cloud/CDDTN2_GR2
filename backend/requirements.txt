@@ -1,0 +1,16 @@
+# Khóa phiên bản theo bảng công nghệ buổi 4 (Python 3.11) – NFR-08
+pandas==2.2.3
+numpy==1.26.4
+scipy==1.13.1
+scikit-learn==1.5.2
+statsmodels==0.14.4
+joblib==1.4.2
+matplotlib==3.9.2
+fastapi==0.115.5
+uvicorn[standard]==0.30.6
+pydantic==2.14.1
+python-multipart==0.0.12
+python-dotenv==1.0.1
+reportlab==4.2.5
+google-genai==2.33.0          # Gemini: function calling, khóa AI Studio (AIza…) và Vertex AI express (AQ.…)
+httpx==0.28.1

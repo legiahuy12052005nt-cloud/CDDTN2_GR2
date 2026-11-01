@@ -1,0 +1,11 @@
+{
+ "0": {"name": "Hương vị, mùi, kết cấu không ngon", "en": "Taste & texture"},
+ "1": {"name": "Cà phê nhạt/đắng, viên K-cup", "en": "Coffee strength & pods"},
+ "2": {"name": "Hàng cũ, hết hạn, bao bì hỏng khi nhận", "en": "Stale / expired / damaged on arrival"},
+ "3": {"name": "Trà: vị nhạt, túi lọc", "en": "Tea quality"},
+ "4": {"name": "Thức ăn thú cưng: xuất xứ, làm thú bệnh", "en": "Pet food safety"},
+ "5": {"name": "Giá cao so với cửa hàng, phí giao hàng", "en": "Price & shipping cost"},
+ "6": {"name": "Thành phần: đường, siro ngô, không tự nhiên", "en": "Ingredients & sugar"},
+ "7": {"name": "Sô-cô-la, bánh quy, bơ đậu phộng", "en": "Chocolate & snacks"},
+ "8": {"name": "Sản phẩm không gluten, bột làm bánh", "en": "Gluten-free & baking"}
+}

@@ -1,0 +1,346 @@
+{
+ "split": {
+  "n_total": 393890,
+  "train": 275723,
+  "val": 39389,
+  "test": 78778,
+  "test_score_dist": {
+   "1": 7260,
+   "2": 4160,
+   "3": 5954,
+   "4": 11217,
+   "5": 50187
+  }
+ },
+ "B0_majority": {
+  "f1_macro3": 0.292,
+  "f1_neg": 0.0,
+  "f1_neu": 0.0,
+  "f1_pos": 0.8761,
+  "prec_neg": 0.0,
+  "rec_neg": 0.0,
+  "prec_neu": 0.0,
+  "rec_neu": 0.0,
+  "prec_pos": 0.7795,
+  "rec_pos": 1.0,
+  "acc3": 0.7795,
+  "acc5": 0.6371,
+  "f1_macro5": 0.1557,
+  "mae": 0.8206
+ },
+ "tfidf_fit_seconds_100k": 18.7,
+ "vocab_size_100k": 200000,
+ "tuning_best": {
+  "LR": {
+   "param": "C=4.0",
+   "f1_macro3": 0.7068,
+   "f1_neg": 0.7684,
+   "mae": 0.3914
+  },
+  "NB": {
+   "param": "alpha=0.3",
+   "f1_macro3": 0.678,
+   "f1_neg": 0.7261,
+   "mae": 0.4936
+  },
+  "SVM": {
+   "param": "C=0.3",
+   "f1_macro3": 0.6816,
+   "f1_neg": 0.761,
+   "mae": 0.3771
+  }
+ },
+ "learning_curve": [
+  {
+   "n_train": 25000,
+   "sec_fit_total": 17.0,
+   "f1_macro3": 0.6838,
+   "f1_neg": 0.7447,
+   "f1_neu": 0.3655,
+   "f1_pos": 0.9413,
+   "prec_neg": 0.7243,
+   "rec_neg": 0.7664,
+   "prec_neu": 0.4473,
+   "rec_neu": 0.309,
+   "prec_pos": 0.9324,
+   "rec_pos": 0.9503,
+   "acc3": 0.8752,
+   "acc5": 0.708,
+   "f1_macro5": 0.5214,
+   "mae": 0.4158,
+   "mae_expected": 0.6115
+  },
+  {
+   "n_train": 50000,
+   "sec_fit_total": 45.9,
+   "f1_macro3": 0.6994,
+   "f1_neg": 0.7583,
+   "f1_neu": 0.3945,
+   "f1_pos": 0.9454,
+   "prec_neg": 0.7277,
+   "rec_neg": 0.7916,
+   "prec_neu": 0.4602,
+   "rec_neu": 0.3453,
+   "prec_pos": 0.9417,
+   "rec_pos": 0.9491,
+   "acc3": 0.8807,
+   "acc5": 0.7138,
+   "f1_macro5": 0.5349,
+   "mae": 0.4005,
+   "mae_expected": 0.5605
+  },
+  {
+   "n_train": 100000,
+   "sec_fit_total": 78.7,
+   "f1_macro3": 0.7068,
+   "f1_neg": 0.7684,
+   "f1_neu": 0.4047,
+   "f1_pos": 0.9473,
+   "prec_neg": 0.7309,
+   "rec_neg": 0.81,
+   "prec_neu": 0.4502,
+   "rec_neu": 0.3675,
+   "prec_pos": 0.9484,
+   "rec_pos": 0.9462,
+   "acc3": 0.8827,
+   "acc5": 0.7144,
+   "f1_macro5": 0.5414,
+   "mae": 0.3914,
+   "mae_expected": 0.5274
+  },
+  {
+   "n_train": 200000,
+   "sec_fit_total": 161.5,
+   "f1_macro3": 0.7189,
+   "f1_neg": 0.7772,
+   "f1_neu": 0.4302,
+   "f1_pos": 0.9494,
+   "prec_neg": 0.7354,
+   "rec_neg": 0.824,
+   "prec_neu": 0.4539,
+   "rec_neu": 0.4088,
+   "prec_pos": 0.9556,
+   "rec_pos": 0.9434,
+   "acc3": 0.8857,
+   "acc5": 0.7104,
+   "f1_macro5": 0.5485,
+   "mae": 0.3862,
+   "mae_expected": 0.4993
+  }
+ ],
+ "tfidf_fit_seconds_80": 54.9,
+ "test": {
+  "LR": {
+   "param": "C=4.0",
+   "fit_seconds": 181.9,
+   "f1_macro3": 0.7193,
+   "f1_neg": 0.7812,
+   "f1_neu": 0.4274,
+   "f1_pos": 0.9494,
+   "prec_neg": 0.7407,
+   "rec_neg": 0.8264,
+   "prec_neu": 0.4435,
+   "rec_neu": 0.4125,
+   "prec_pos": 0.9565,
+   "rec_pos": 0.9424,
+   "acc3": 0.8855,
+   "acc5": 0.7093,
+   "f1_macro5": 0.5511,
+   "mae": 0.3849,
+   "mae_expected": 0.4871
+  },
+  "NB": {
+   "param": "alpha=0.3",
+   "fit_seconds": 0.4,
+   "f1_macro3": 0.6846,
+   "f1_neg": 0.7315,
+   "f1_neu": 0.384,
+   "f1_pos": 0.9382,
+   "prec_neg": 0.6425,
+   "rec_neg": 0.8492,
+   "prec_neu": 0.4581,
+   "rec_neu": 0.3305,
+   "prec_pos": 0.9542,
+   "rec_pos": 0.9228,
+   "acc3": 0.8674,
+   "acc5": 0.671,
+   "f1_macro5": 0.5198,
+   "mae": 0.472,
+   "mae_expected": 0.7371
+  },
+  "SVM": {
+   "param": "C=0.3",
+   "fit_seconds": 218.6,
+   "f1_macro3": 0.6988,
+   "f1_neg": 0.7842,
+   "f1_neu": 0.364,
+   "f1_pos": 0.9482,
+   "prec_neg": 0.8366,
+   "rec_neg": 0.738,
+   "prec_neu": 0.5826,
+   "rec_neu": 0.2647,
+   "prec_pos": 0.9152,
+   "rec_pos": 0.9837,
+   "acc3": 0.8937,
+   "acc5": 0.7614,
+   "f1_macro5": 0.5337,
+   "mae": 0.3524,
+   "mae_expected": 0.4688
+  }
+ },
+ "app_mode_100k": {
+  "fit_seconds_total": 79.6,
+  "f1_macro3": 0.7071,
+  "f1_neg": 0.769,
+  "f1_neu": 0.4045,
+  "f1_pos": 0.9479,
+  "prec_neg": 0.7303,
+  "rec_neg": 0.8119,
+  "prec_neu": 0.4523,
+  "rec_neu": 0.3658,
+  "prec_pos": 0.9489,
+  "rec_pos": 0.9468,
+  "acc3": 0.8833,
+  "acc5": 0.7138,
+  "f1_macro5": 0.5418,
+  "mae": 0.3907,
+  "mae_expected": 0.5253
+ },
+ "ablation_direct3_100k": {
+  "f1_macro3": 0.7157,
+  "f1_neg": 0.7673,
+  "compare_5to3_100k": {
+   "f1_macro3": 0.7071,
+   "f1_neg": 0.769
+  }
+ },
+ "out_of_time_2012": {
+  "n_test": 139179,
+  "f1_macro3": 0.7081,
+  "f1_neg": 0.779,
+  "f1_neu": 0.4026,
+  "f1_pos": 0.9427,
+  "prec_neg": 0.7453,
+  "rec_neg": 0.8159,
+  "prec_neu": 0.4342,
+  "rec_neu": 0.3753,
+  "prec_pos": 0.9455,
+  "rec_pos": 0.9398,
+  "acc3": 0.8754,
+  "acc5": 0.7006,
+  "f1_macro5": 0.541,
+  "mae": 0.411,
+  "mae_expected": 0.5422
+ },
+ "selected": "LR",
+ "confusion3": [
+  [
+   9437,
+   1167,
+   816
+  ],
+  [
+   1681,
+   2456,
+   1817
+  ],
+  [
+   1622,
+   1915,
+   57867
+  ]
+ ],
+ "confusion5": [
+  [
+   5291,
+   1176,
+   448,
+   146,
+   199
+  ],
+  [
+   1272,
+   1455,
+   1027,
+   260,
+   146
+  ],
+  [
+   570,
+   968,
+   2759,
+   1301,
+   356
+  ],
+  [
+   232,
+   336,
+   1561,
+   5557,
+   3531
+  ],
+  [
+   657,
+   411,
+   1008,
+   7299,
+   40812
+  ]
+ ],
+ "latency_ms_per_review": 2.47,
+ "mismatch_test": {
+  "5star_but_neg": 210,
+  "1star_but_pos": 64
+ },
+ "mismatch_examples": [
+  {
+   "review_id": 502206,
+   "score": 5,
+   "summary": "new package, the same taste"
+  },
+  {
+   "review_id": 426600,
+   "score": 5,
+   "summary": "ALL MY FAMILY LOVE THIS COCONUT WATER, SPECIALLY MY BABY OF ALMOST 2 YEARS"
+  },
+  {
+   "review_id": 242469,
+   "score": 5,
+   "summary": "I Am Now Very Dissapointed!"
+  }
+ ],
+ "keywords_up": {
+  "great": 96.14,
+  "delicious": 67.99,
+  "excellent": 64.29,
+  "good": 60.56,
+  "best": 59.9,
+  "yummy": 48.54,
+  "not too": 47.98,
+  "perfect": 45.78,
+  "wonderful": 43.1,
+  "awesome": 42.77,
+  "amazing": 42.14,
+  "love this": 41.12,
+  "not bad": 39.32,
+  "yum": 37.88,
+  "tasty": 37.22
+ },
+ "keywords_down": {
+  "not": -71.02,
+  "not good": -59.72,
+  "not worth": -59.13,
+  "disappointing": -57.14,
+  "not recommend": -53.66,
+  "yuck": -53.61,
+  "terrible": -52.28,
+  "awful": -49.75,
+  "worst": -47.99,
+  "disappointed": -47.69,
+  "horrible": -46.51,
+  "disappointment": -45.62,
+  "very disappointed": -42.25,
+  "not great": -41.5,
+  "not very": -39.69
+ }
+}

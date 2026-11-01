@@ -1,0 +1,39 @@
+sequenceDiagram
+    autonumber
+    actor U as Chuyên viên<br/>phân tích
+    participant FE as React<br/>UploadPage
+    participant API as FastAPI<br/>router upload
+    participant JOB as Job nền<br/>(pipeline)
+    participant SV as Các service<br/>Data · Model · Topic<br/>Forecast · Alert
+    participant ST as Lưu trữ tệp<br/>CSV · joblib · JSON
+    U->>FE: Kéo-thả Reviews.csv
+    FE->>API: POST /api/upload<br/>(multipart)
+    API->>API: validate_schema(df)
+    alt Thiếu cột bắt buộc / sai kiểu
+        API-->>FE: 400 MISSING_COLUMN<br/>"Thiếu cột bắt buộc: Text"
+        FE-->>U: Báo lỗi tại trang (NFR-07)
+    else Đang có job khác
+        API-->>FE: 409 JOB_RUNNING
+    else Hợp lệ
+        API->>JOB: tạo job_id, chạy nền
+        API-->>FE: 202 {job_id,<br/>dataset_version, n_rows_raw}
+        par Job nền chạy 7 bước
+            JOB->>SV: clean_reviews()<br/>R1…R9
+            alt < 200 dòng sạch / thiếu nhóm cảm xúc
+                Note over JOB,ST: status = failed (TOO_FEW_ROWS /<br/>TOO_FEW_CLASSES) – dữ liệu<br/>đang dùng giữ nguyên (NFR-07)
+            else File mới dùng được
+                JOB->>ST: xóa kết quả<br/>phiên cũ (FR-24)
+                SV->>ST: reviews_clean.csv,<br/>dataset_meta.json
+                JOB->>SV: eda → train → topics<br/>→ forecast → alerts
+                SV->>ST: *.joblib, predictions.csv,<br/>topics.json, products.csv,<br/>forecast_overall.json
+            end
+        and Frontend hỏi tiến trình mỗi giây
+            loop đến khi done / failed
+                FE->>API: GET /api/jobs/{job_id}
+                API-->>FE: {status, progress,<br/>current_step, steps[7]}
+            end
+        end
+        JOB-->>API: status = done<br/>(nạp kết quả vào bộ nhớ)
+        FE->>API: GET /api/kpi, /api/forecast,<br/>/api/eda/score_dist, /api/products
+        API-->>FE: JSON → tab Tổng quan
+    end

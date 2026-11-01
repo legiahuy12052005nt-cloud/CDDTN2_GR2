@@ -1,0 +1,3737 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "FoodReview Insight API",
+  "description": "Hợp đồng API của đề tài Phân tích & dự báo mức độ hài lòng của khách hàng từ dữ liệu đánh giá thực phẩm trên Amazon (Chuyên đề tốt nghiệp 2 – ĐH Văn Lang).",
+  "version": "1.2.0"
+ },
+ "paths": {
+  "/api/health": {
+   "get": {
+    "tags": [
+     "Hệ thống"
+    ],
+    "summary": "Kiểm tra hệ thống đang chạy",
+    "operationId": "health_api_health_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HealthResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/upload": {
+   "post": {
+    "tags": [
+     "Dữ liệu"
+    ],
+    "summary": "Tải lên file CSV và bắt đầu xử lý nền",
+    "operationId": "upload_api_upload_post",
+    "requestBody": {
+     "content": {
+      "multipart/form-data": {
+       "schema": {
+        "$ref": "#/components/schemas/Body_upload_api_upload_post"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "202": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/UploadAccepted"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      }
+     },
+     "409": {
+      "description": "Conflict",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      }
+     },
+     "413": {
+      "description": "Request Entity Too Large",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      }
+     },
+     "415": {
+      "description": "Unsupported Media Type",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/jobs/{job_id}": {
+   "get": {
+    "tags": [
+     "Dữ liệu"
+    ],
+    "summary": "Tiến trình xử lý nền (thanh tiến trình – NFR-01)",
+    "operationId": "job_status_api_jobs__job_id__get",
+    "parameters": [
+     {
+      "name": "job_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Job Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/JobStatus"
+        }
+       }
+      }
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/data/sample": {
+   "post": {
+    "tags": [
+     "Dữ liệu"
+    ],
+    "summary": "Dùng dữ liệu có sẵn trên máy chủ",
+    "description": "kind = sample: mẫu phân tầng 100.000 dòng (data/sample); kind = full: toàn bộ Reviews.csv (data/raw)",
+    "operationId": "use_sample_api_data_sample_post",
+    "parameters": [
+     {
+      "name": "kind",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "enum": [
+        "sample",
+        "full"
+       ],
+       "type": "string",
+       "default": "sample",
+       "title": "Kind"
+      }
+     }
+    ],
+    "responses": {
+     "202": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/UploadAccepted"
+        }
+       }
+      }
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/data/quality": {
+   "get": {
+    "tags": [
+     "Dữ liệu"
+    ],
+    "summary": "Báo cáo chất lượng dữ liệu và 20 dòng đầu (FR-03)",
+    "operationId": "quality_api_data_quality_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/QualityResponse"
+        }
+       }
+      }
+     },
+     "409": {
+      "description": "Conflict",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/session/reset": {
+   "post": {
+    "tags": [
+     "Dữ liệu"
+    ],
+    "summary": "Đổi file, xóa phiên hiện tại (FR-24)",
+    "operationId": "reset_api_session_reset_post",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ResetResponse"
+        }
+       }
+      }
+     },
+     "409": {
+      "description": "Conflict",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/kpi": {
+   "get": {
+    "tags": [
+     "Tổng quan & phân tích"
+    ],
+    "summary": "Các chỉ số tổng quan (FR-07)",
+    "operationId": "kpi_api_kpi_get",
+    "parameters": [
+     {
+      "name": "date_from",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string",
+         "pattern": "^\\d{4}-\\d{2}$"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Date From"
+      }
+     },
+     {
+      "name": "date_to",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string",
+         "pattern": "^\\d{4}-\\d{2}$"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Date To"
+      }
+     },
+     {
+      "name": "product_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Product Id"
+      }
+     },
+     {
+      "name": "sentiment",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "enum": [
+          "neg",
+          "neu",
+          "pos"
+         ],
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Sentiment"
+      }
+     },
+     {
+      "name": "score",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer",
+         "maximum": 5,
+         "minimum": 1
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Score"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/KpiResponse"
+        }
+       }
+      }
+     },
+     "409": {
+      "description": "Chưa có dữ liệu (DATASET_NOT_LOADED)",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/eda/{chart}": {
+   "get": {
+    "tags": [
+     "Tổng quan & phân tích"
+    ],
+    "summary": "Dữ liệu cho từng biểu đồ EDA, nhận bộ lọc (FR-08, FR-09)",
+    "operationId": "eda_api_eda__chart__get",
+    "parameters": [
+     {
+      "name": "chart",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "enum": [
+        "score_dist",
+        "monthly",
+        "length_by_score",
+        "keywords",
+        "top_products"
+       ],
+       "type": "string",
+       "title": "Chart"
+      }
+     },
+     {
+      "name": "date_from",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string",
+         "pattern": "^\\d{4}-\\d{2}$"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Date From"
+      }
+     },
+     {
+      "name": "date_to",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string",
+         "pattern": "^\\d{4}-\\d{2}$"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Date To"
+      }
+     },
+     {
+      "name": "product_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Product Id"
+      }
+     },
+     {
+      "name": "sentiment",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "enum": [
+          "neg",
+          "neu",
+          "pos"
+         ],
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Sentiment"
+      }
+     },
+     {
+      "name": "score",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer",
+         "maximum": 5,
+         "minimum": 1
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Score"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ChartResponse"
+        }
+       }
+      }
+     },
+     "409": {
+      "description": "Chưa có dữ liệu (DATASET_NOT_LOADED)",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/topics": {
+   "get": {
+    "tags": [
+     "Tổng quan & phân tích"
+    ],
+    "summary": "Chủ đề phàn nàn và xu hướng (FR-18)",
+    "operationId": "topics_api_topics_get",
+    "parameters": [
+     {
+      "name": "product_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Product Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/TopicsResponse"
+        }
+       }
+      }
+     },
+     "409": {
+      "description": "Chưa có dữ liệu (DATASET_NOT_LOADED)",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Không có mã sản phẩm (PRODUCT_NOT_FOUND)",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/products": {
+   "get": {
+    "tags": [
+     "Tổng quan & phân tích"
+    ],
+    "summary": "Danh sách sản phẩm, mức rủi ro (FR-21)",
+    "operationId": "products_api_products_get",
+    "parameters": [
+     {
+      "name": "q",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Tìm theo mã sản phẩm (một phần mã)",
+       "title": "Q"
+      },
+      "description": "Tìm theo mã sản phẩm (một phần mã)"
+     },
+     {
+      "name": "risk",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "enum": [
+          "high",
+          "medium",
+          "low",
+          "insufficient"
+         ],
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Risk"
+      }
+     },
+     {
+      "name": "sort",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "enum": [
+        "risk",
+        "n_reviews",
+        "avg_score",
+        "delta",
+        "neg_rate"
+       ],
+       "type": "string",
+       "default": "risk",
+       "title": "Sort"
+      }
+     },
+     {
+      "name": "order",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "enum": [
+        "asc",
+        "desc"
+       ],
+       "type": "string",
+       "default": "desc",
+       "title": "Order"
+      }
+     },
+     {
+      "name": "page",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "minimum": 1,
+       "default": 1,
+       "title": "Page"
+      }
+     },
+     {
+      "name": "page_size",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "maximum": 100,
+       "minimum": 5,
+       "default": 20,
+       "title": "Page Size"
+      }
+     },
+     {
+      "name": "min_reviews",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "minimum": 0,
+       "default": 0,
+       "title": "Min Reviews"
+      }
+     },
+     {
+      "name": "forecastable",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "boolean"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Forecastable"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProductsResponse"
+        }
+       }
+      }
+     },
+     "409": {
+      "description": "Chưa có dữ liệu (DATASET_NOT_LOADED)",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/model/metrics": {
+   "get": {
+    "tags": [
+     "Mô hình"
+    ],
+    "summary": "Chỉ số so sánh mô hình, ma trận nhầm lẫn (FR-11)",
+    "operationId": "metrics_api_model_metrics_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ModelMetricsResponse"
+        }
+       }
+      }
+     },
+     "409": {
+      "description": "Mô hình chưa huấn luyện xong (MODEL_NOT_READY)",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/model/keywords": {
+   "get": {
+    "tags": [
+     "Mô hình"
+    ],
+    "summary": "Từ khóa làm tăng/giảm số sao (FR-12)",
+    "operationId": "keywords_api_model_keywords_get",
+    "parameters": [
+     {
+      "name": "n",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "maximum": 50,
+       "minimum": 5,
+       "default": 15,
+       "title": "N"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/KeywordsResponse"
+        }
+       }
+      }
+     },
+     "409": {
+      "description": "Mô hình chưa huấn luyện xong (MODEL_NOT_READY)",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/reviews/mismatch": {
+   "get": {
+    "tags": [
+     "Mô hình"
+    ],
+    "summary": "Đánh giá có số sao mâu thuẫn nội dung (FR-13)",
+    "operationId": "mismatch_api_reviews_mismatch_get",
+    "parameters": [
+     {
+      "name": "threshold",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "number",
+       "maximum": 0.99,
+       "minimum": 0.5,
+       "default": 0.8,
+       "title": "Threshold"
+      }
+     },
+     {
+      "name": "page",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "minimum": 1,
+       "default": 1,
+       "title": "Page"
+      }
+     },
+     {
+      "name": "page_size",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "maximum": 100,
+       "minimum": 5,
+       "default": 20,
+       "title": "Page Size"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/MismatchResponse"
+        }
+       }
+      }
+     },
+     "409": {
+      "description": "Mô hình chưa huấn luyện xong (MODEL_NOT_READY)",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/predict": {
+   "post": {
+    "tags": [
+     "Dự đoán"
+    ],
+    "summary": "Dự đoán số sao, cảm xúc, chỉ số hài lòng của một đánh giá",
+    "description": "Dùng mô hình đã huấn luyện trên dữ liệu đã làm sạch, chuẩn hóa của phiên hiện tại; văn bản nhập vào được chuẩn hóa giống dữ liệu huấn luyện (chữ thường, n't → not, TF-IDF 1–2-gram).",
+    "operationId": "predict_api_predict_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PredictRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/PredictResponse"
+        }
+       }
+      }
+     },
+     "409": {
+      "description": "Conflict",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Unprocessable Entity",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/satisfaction": {
+   "get": {
+    "tags": [
+     "Dự báo"
+    ],
+    "summary": "Chỉ số hài lòng theo tháng (FR-19)",
+    "operationId": "satisfaction_api_satisfaction_get",
+    "parameters": [
+     {
+      "name": "product_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Product Id"
+      }
+     },
+     {
+      "name": "date_from",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string",
+         "pattern": "^\\d{4}-\\d{2}$"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Date From"
+      }
+     },
+     {
+      "name": "date_to",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string",
+         "pattern": "^\\d{4}-\\d{2}$"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Date To"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/SatisfactionResponse"
+        }
+       }
+      }
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/forecast": {
+   "get": {
+    "tags": [
+     "Dự báo"
+    ],
+    "summary": "Dự báo chỉ số hài lòng 3/6/12 tháng (FR-20)",
+    "operationId": "forecast_api_forecast_get",
+    "parameters": [
+     {
+      "name": "product_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Product Id"
+      }
+     },
+     {
+      "name": "months",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "description": "Số tháng dự báo: 3, 6 hoặc 12",
+       "default": 12,
+       "title": "Months"
+      },
+      "description": "Số tháng dự báo: 3, 6 hoặc 12"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ForecastResponse"
+        }
+       }
+      }
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/ai/insights": {
+   "post": {
+    "tags": [
+     "Trợ lý AI"
+    ],
+    "summary": "Nguyên nhân + giải pháp từ Gemini, có lưu đệm",
+    "description": "Gửi tối đa 30 đánh giá tiêu cực của sản phẩm/chủ đề cho Gemini; mỗi nguyên nhân phải trích review_id có thật. Không có khóa Gemini hoặc Gemini lỗi: trả kết quả đã lưu, nếu chưa có thì phân tích theo quy tắc (source = rule).",
+    "operationId": "insights_api_ai_insights_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/InsightRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/InsightResponse"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      }
+     },
+     "409": {
+      "description": "Conflict",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      }
+     },
+     "502": {
+      "description": "Bad Gateway",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/chat": {
+   "post": {
+    "tags": [
+     "Trợ lý AI"
+    ],
+    "summary": "Chatbot hỏi đáp dữ liệu hệ thống và kiến thức chung",
+    "description": "Gemini được cấp 10 công cụ đọc dữ liệu thật (KPI, sản phẩm rủi ro, chủ đề, dự báo, dự đoán, tìm đánh giá…) và tự quyết định gọi công cụ nào; câu hỏi ngoài hệ thống được trả lời bằng kiến thức chung của Gemini.",
+    "operationId": "chat_api_chat_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ChatRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ChatResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/report/pdf": {
+   "get": {
+    "tags": [
+     "Báo cáo"
+    ],
+    "summary": "Tạo và tải báo cáo PDF tiếng Việt (FR-22)",
+    "operationId": "report_pdf_api_report_pdf_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/pdf": {}
+      }
+     },
+     "409": {
+      "description": "Conflict",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/export/{table}": {
+   "get": {
+    "tags": [
+     "Báo cáo"
+    ],
+    "summary": "Tải CSV kết quả (FR-23)",
+    "operationId": "export_api_export__table__get",
+    "parameters": [
+     {
+      "name": "table",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "enum": [
+        "predictions",
+        "product_risk",
+        "topics",
+        "monthly",
+        "model_metrics",
+        "forecast"
+       ],
+       "type": "string",
+       "title": "Table"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "text/csv": {}
+      }
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorResponse"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "Body_upload_api_upload_post": {
+    "properties": {
+     "file": {
+      "type": "string",
+      "format": "binary",
+      "title": "File",
+      "description": "File .csv ≤ 400 MB"
+     }
+    },
+    "type": "object",
+    "required": [
+     "file"
+    ],
+    "title": "Body_upload_api_upload_post"
+   },
+   "Cause": {
+    "properties": {
+     "title": {
+      "type": "string",
+      "title": "Title"
+     },
+     "description": {
+      "type": "string",
+      "title": "Description"
+     },
+     "severity": {
+      "type": "string",
+      "enum": [
+       "cao",
+       "trung bình",
+       "thấp"
+      ],
+      "title": "Severity"
+     },
+     "evidence_ids": {
+      "items": {
+       "type": "integer"
+      },
+      "type": "array",
+      "minItems": 1,
+      "title": "Evidence Ids"
+     },
+     "evidence": {
+      "items": {
+       "$ref": "#/components/schemas/Evidence"
+      },
+      "type": "array",
+      "title": "Evidence"
+     }
+    },
+    "type": "object",
+    "required": [
+     "title",
+     "description",
+     "severity",
+     "evidence_ids",
+     "evidence"
+    ],
+    "title": "Cause"
+   },
+   "ChartResponse": {
+    "properties": {
+     "meta": {
+      "$ref": "#/components/schemas/Meta"
+     },
+     "chart": {
+      "type": "string",
+      "enum": [
+       "score_dist",
+       "monthly",
+       "length_by_score",
+       "keywords",
+       "top_products"
+      ],
+      "title": "Chart"
+     },
+     "data": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "type": "array",
+      "title": "Data",
+      "description": "Mảng điểm dữ liệu; cấu trúc từng phần tử theo bảng 6.x của tài liệu thiết kế"
+     }
+    },
+    "type": "object",
+    "required": [
+     "meta",
+     "chart",
+     "data"
+    ],
+    "title": "ChartResponse"
+   },
+   "ChatMessage": {
+    "properties": {
+     "role": {
+      "type": "string",
+      "enum": [
+       "user",
+       "assistant"
+      ],
+      "title": "Role"
+     },
+     "content": {
+      "type": "string",
+      "title": "Content"
+     }
+    },
+    "type": "object",
+    "required": [
+     "role",
+     "content"
+    ],
+    "title": "ChatMessage"
+   },
+   "ChatRequest": {
+    "properties": {
+     "message": {
+      "type": "string",
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Message"
+     },
+     "history": {
+      "items": {
+       "$ref": "#/components/schemas/ChatMessage"
+      },
+      "type": "array",
+      "maxItems": 20,
+      "title": "History"
+     },
+     "context": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Context",
+      "description": "Ngữ cảnh màn hình: page, product_id, topic_id",
+      "examples": [
+       {
+        "page": "Sản phẩm & cảnh báo",
+        "product_id": "B007JFMH8M"
+       }
+      ]
+     }
+    },
+    "type": "object",
+    "required": [
+     "message"
+    ],
+    "title": "ChatRequest"
+   },
+   "ChatResponse": {
+    "properties": {
+     "answer": {
+      "type": "string",
+      "title": "Answer"
+     },
+     "data_used": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Data Used",
+      "description": "Các công cụ dữ liệu của hệ thống mà trợ lý đã gọi để trả lời"
+     },
+     "cached": {
+      "type": "boolean",
+      "title": "Cached",
+      "default": false
+     },
+     "source": {
+      "type": "string",
+      "enum": [
+       "gemini",
+       "rule"
+      ],
+      "title": "Source",
+      "default": "gemini"
+     },
+     "model": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Model"
+     },
+     "latency_ms": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Latency Ms"
+     }
+    },
+    "type": "object",
+    "required": [
+     "answer",
+     "data_used"
+    ],
+    "title": "ChatResponse"
+   },
+   "ErrorBody": {
+    "properties": {
+     "code": {
+      "type": "string",
+      "title": "Code",
+      "examples": [
+       "MISSING_COLUMN"
+      ]
+     },
+     "message": {
+      "type": "string",
+      "title": "Message",
+      "examples": [
+       "Thiếu cột bắt buộc: Text"
+      ]
+     },
+     "details": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Details"
+     }
+    },
+    "type": "object",
+    "required": [
+     "code",
+     "message"
+    ],
+    "title": "ErrorBody"
+   },
+   "ErrorResponse": {
+    "properties": {
+     "error": {
+      "$ref": "#/components/schemas/ErrorBody"
+     }
+    },
+    "type": "object",
+    "required": [
+     "error"
+    ],
+    "title": "ErrorResponse"
+   },
+   "Evidence": {
+    "properties": {
+     "review_id": {
+      "type": "integer",
+      "title": "Review Id"
+     },
+     "score": {
+      "type": "integer",
+      "title": "Score"
+     },
+     "summary": {
+      "type": "string",
+      "title": "Summary"
+     },
+     "text": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Text"
+     },
+     "date": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Date"
+     },
+     "product_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Product Id"
+     }
+    },
+    "type": "object",
+    "required": [
+     "review_id",
+     "score",
+     "summary"
+    ],
+    "title": "Evidence"
+   },
+   "ForecastPoint": {
+    "properties": {
+     "month": {
+      "type": "string",
+      "title": "Month"
+     },
+     "sat_index": {
+      "type": "number",
+      "title": "Sat Index"
+     },
+     "lo": {
+      "type": "number",
+      "title": "Lo"
+     },
+     "hi": {
+      "type": "number",
+      "title": "Hi"
+     }
+    },
+    "type": "object",
+    "required": [
+     "month",
+     "sat_index",
+     "lo",
+     "hi"
+    ],
+    "title": "ForecastPoint"
+   },
+   "ForecastResponse": {
+    "properties": {
+     "meta": {
+      "$ref": "#/components/schemas/Meta"
+     },
+     "scope": {
+      "type": "string",
+      "enum": [
+       "all",
+       "product"
+      ],
+      "title": "Scope"
+     },
+     "product_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Product Id"
+     },
+     "eligible": {
+      "type": "boolean",
+      "title": "Eligible"
+     },
+     "message": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Message",
+      "examples": [
+       "Không đủ dữ liệu để dự báo (cần ≥ 36 tháng có đánh giá)"
+      ]
+     },
+     "model": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Model",
+      "examples": [
+       "ETS(A,Ad,N)"
+      ]
+     },
+     "history": {
+      "items": {
+       "$ref": "#/components/schemas/MonthPoint"
+      },
+      "type": "array",
+      "title": "History",
+      "default": []
+     },
+     "forecast": {
+      "items": {
+       "$ref": "#/components/schemas/ForecastPoint"
+      },
+      "type": "array",
+      "title": "Forecast",
+      "default": []
+     },
+     "backtest": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Backtest",
+      "examples": [
+       {
+        "mae_model": 0.61,
+        "mae_naive": 1.5,
+        "unit": "điểm chỉ số"
+       }
+      ]
+     },
+     "series": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Series",
+      "description": "Chuỗi dùng để dự báo: tháng đầu/cuối, số tháng, ngưỡng đánh giá/tháng"
+     }
+    },
+    "type": "object",
+    "required": [
+     "meta",
+     "scope",
+     "eligible"
+    ],
+    "title": "ForecastResponse"
+   },
+   "HTTPValidationError": {
+    "properties": {
+     "detail": {
+      "items": {
+       "$ref": "#/components/schemas/ValidationError"
+      },
+      "type": "array",
+      "title": "Detail"
+     }
+    },
+    "type": "object",
+    "title": "HTTPValidationError"
+   },
+   "HealthResponse": {
+    "properties": {
+     "status": {
+      "type": "string",
+      "const": "ok",
+      "title": "Status",
+      "default": "ok"
+     },
+     "version": {
+      "type": "string",
+      "title": "Version",
+      "default": "1.2.0"
+     },
+     "dataset_loaded": {
+      "type": "boolean",
+      "title": "Dataset Loaded"
+     },
+     "model_ready": {
+      "type": "boolean",
+      "title": "Model Ready"
+     },
+     "gemini_configured": {
+      "type": "boolean",
+      "title": "Gemini Configured"
+     },
+     "gemini_model": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Gemini Model",
+      "description": "Model Gemini đang dùng sau lần gọi thành công gần nhất"
+     },
+     "gemini_error": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Gemini Error",
+      "description": "Lỗi Gemini gần nhất (khóa sai, hết hạn mức, mất mạng)"
+     },
+     "sample_available": {
+      "type": "boolean",
+      "title": "Sample Available",
+      "default": false
+     },
+     "raw_available": {
+      "type": "boolean",
+      "title": "Raw Available",
+      "description": "Có file Reviews.csv đầy đủ trong data/raw",
+      "default": false
+     },
+     "job_running": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Job Running"
+     },
+     "dataset": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Dataset",
+      "description": "Tóm tắt dữ liệu đang nạp: file, số đánh giá, khoảng thời gian"
+     }
+    },
+    "type": "object",
+    "required": [
+     "dataset_loaded",
+     "model_ready",
+     "gemini_configured"
+    ],
+    "title": "HealthResponse"
+   },
+   "InsightRequest": {
+    "properties": {
+     "scope": {
+      "type": "string",
+      "enum": [
+       "product",
+       "topic"
+      ],
+      "title": "Scope"
+     },
+     "id": {
+      "type": "string",
+      "title": "Id",
+      "examples": [
+       "B00507A02Q"
+      ]
+     },
+     "refresh": {
+      "type": "boolean",
+      "title": "Refresh",
+      "description": "True: bỏ qua cache, gọi lại Gemini",
+      "default": false
+     }
+    },
+    "type": "object",
+    "required": [
+     "scope",
+     "id"
+    ],
+    "title": "InsightRequest"
+   },
+   "InsightResponse": {
+    "properties": {
+     "scope": {
+      "type": "string",
+      "title": "Scope"
+     },
+     "id": {
+      "type": "string",
+      "title": "Id"
+     },
+     "cached": {
+      "type": "boolean",
+      "title": "Cached"
+     },
+     "created_at": {
+      "type": "string",
+      "title": "Created At"
+     },
+     "model": {
+      "type": "string",
+      "title": "Model",
+      "examples": [
+       "gemini-flash"
+      ]
+     },
+     "causes": {
+      "items": {
+       "$ref": "#/components/schemas/Cause"
+      },
+      "type": "array",
+      "title": "Causes"
+     },
+     "solutions": {
+      "items": {
+       "$ref": "#/components/schemas/Solution"
+      },
+      "type": "array",
+      "title": "Solutions"
+     },
+     "dropped_causes": {
+      "type": "integer",
+      "title": "Dropped Causes",
+      "description": "Số nguyên nhân bị loại vì ID bằng chứng không tồn tại (NFR-10)",
+      "default": 0
+     },
+     "source": {
+      "type": "string",
+      "enum": [
+       "gemini",
+       "rule"
+      ],
+      "title": "Source",
+      "description": "gemini: do Gemini sinh; rule: suy giảm có kiểm soát khi không có Gemini",
+      "default": "gemini"
+     },
+     "title": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Title"
+     },
+     "stats": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Stats",
+      "description": "Số liệu tóm tắt đã gửi kèm prompt"
+     },
+     "n_reviews_sent": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "N Reviews Sent"
+     },
+     "note": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Note"
+     },
+     "latency_ms": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Latency Ms"
+     }
+    },
+    "type": "object",
+    "required": [
+     "scope",
+     "id",
+     "cached",
+     "created_at",
+     "model",
+     "causes",
+     "solutions"
+    ],
+    "title": "InsightResponse"
+   },
+   "JobStatus": {
+    "properties": {
+     "job_id": {
+      "type": "string",
+      "title": "Job Id"
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "queued",
+       "running",
+       "done",
+       "failed"
+      ],
+      "title": "Status"
+     },
+     "progress": {
+      "type": "integer",
+      "maximum": 100.0,
+      "minimum": 0.0,
+      "title": "Progress"
+     },
+     "current_step": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Current Step"
+     },
+     "current_label": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Current Label"
+     },
+     "message": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Message",
+      "description": "Mô tả việc đang làm trong bước hiện tại"
+     },
+     "file_name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "File Name"
+     },
+     "steps": {
+      "items": {
+       "$ref": "#/components/schemas/JobStep"
+      },
+      "type": "array",
+      "title": "Steps"
+     },
+     "error": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/ErrorBody"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "summary": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Summary",
+      "description": "Khi xong: n_clean, n_products, thời gian từng bước"
+     }
+    },
+    "type": "object",
+    "required": [
+     "job_id",
+     "status",
+     "progress",
+     "steps"
+    ],
+    "title": "JobStatus"
+   },
+   "JobStep": {
+    "properties": {
+     "name": {
+      "type": "string",
+      "enum": [
+       "validate",
+       "clean",
+       "eda",
+       "train_model",
+       "topics",
+       "forecast",
+       "alerts"
+      ],
+      "title": "Name"
+     },
+     "label": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Label"
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "pending",
+       "running",
+       "done",
+       "failed",
+       "skipped"
+      ],
+      "title": "Status"
+     },
+     "seconds": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Seconds"
+     }
+    },
+    "type": "object",
+    "required": [
+     "name",
+     "status"
+    ],
+    "title": "JobStep"
+   },
+   "KeywordItem": {
+    "properties": {
+     "term": {
+      "type": "string",
+      "title": "Term"
+     },
+     "weight": {
+      "type": "number",
+      "title": "Weight"
+     }
+    },
+    "type": "object",
+    "required": [
+     "term",
+     "weight"
+    ],
+    "title": "KeywordItem"
+   },
+   "KeywordsResponse": {
+    "properties": {
+     "meta": {
+      "$ref": "#/components/schemas/Meta"
+     },
+     "up": {
+      "items": {
+       "$ref": "#/components/schemas/KeywordItem"
+      },
+      "type": "array",
+      "title": "Up"
+     },
+     "down": {
+      "items": {
+       "$ref": "#/components/schemas/KeywordItem"
+      },
+      "type": "array",
+      "title": "Down"
+     }
+    },
+    "type": "object",
+    "required": [
+     "meta",
+     "up",
+     "down"
+    ],
+    "title": "KeywordsResponse"
+   },
+   "KpiResponse": {
+    "properties": {
+     "meta": {
+      "$ref": "#/components/schemas/Meta"
+     },
+     "n_reviews": {
+      "type": "integer",
+      "title": "N Reviews"
+     },
+     "n_products": {
+      "type": "integer",
+      "title": "N Products"
+     },
+     "n_users": {
+      "type": "integer",
+      "title": "N Users"
+     },
+     "avg_score": {
+      "type": "number",
+      "title": "Avg Score"
+     },
+     "neg_rate": {
+      "type": "number",
+      "title": "Neg Rate",
+      "description": "Tỷ lệ đánh giá 1–2 sao, 0–1"
+     },
+     "model_f1_macro": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Model F1 Macro",
+      "description": "F1-macro 3 lớp của mô hình được chọn"
+     },
+     "n_high_risk_products": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "N High Risk Products"
+     },
+     "satisfaction_index": {
+      "type": "number",
+      "title": "Satisfaction Index",
+      "description": "(avg_score − 1) / 4 × 100"
+     },
+     "date_min": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Date Min"
+     },
+     "date_max": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Date Max"
+     },
+     "last_full_month": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Last Full Month"
+     }
+    },
+    "type": "object",
+    "required": [
+     "meta",
+     "n_reviews",
+     "n_products",
+     "n_users",
+     "avg_score",
+     "neg_rate",
+     "satisfaction_index"
+    ],
+    "title": "KpiResponse"
+   },
+   "Meta": {
+    "properties": {
+     "dataset_version": {
+      "type": "string",
+      "title": "Dataset Version",
+      "description": "Mã phiên bản dữ liệu (8 ký tự đầu SHA-1 của file dữ liệu tải lên)",
+      "examples": [
+       "9f2c41ab"
+      ]
+     },
+     "filters": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Filters"
+     }
+    },
+    "type": "object",
+    "required": [
+     "dataset_version"
+    ],
+    "title": "Meta"
+   },
+   "MismatchItem": {
+    "properties": {
+     "review_id": {
+      "type": "integer",
+      "title": "Review Id"
+     },
+     "product_id": {
+      "type": "string",
+      "title": "Product Id"
+     },
+     "score": {
+      "type": "integer",
+      "title": "Score"
+     },
+     "pred_sentiment": {
+      "type": "string",
+      "enum": [
+       "neg",
+       "neu",
+       "pos"
+      ],
+      "title": "Pred Sentiment"
+     },
+     "p_neg": {
+      "type": "number",
+      "title": "P Neg"
+     },
+     "p_pos": {
+      "type": "number",
+      "title": "P Pos"
+     },
+     "summary": {
+      "type": "string",
+      "title": "Summary"
+     },
+     "text": {
+      "type": "string",
+      "title": "Text"
+     },
+     "pred_star": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Pred Star"
+     },
+     "review_date": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Review Date"
+     }
+    },
+    "type": "object",
+    "required": [
+     "review_id",
+     "product_id",
+     "score",
+     "pred_sentiment",
+     "p_neg",
+     "p_pos",
+     "summary",
+     "text"
+    ],
+    "title": "MismatchItem"
+   },
+   "MismatchResponse": {
+    "properties": {
+     "meta": {
+      "$ref": "#/components/schemas/Meta"
+     },
+     "page": {
+      "$ref": "#/components/schemas/Page"
+     },
+     "items": {
+      "items": {
+       "$ref": "#/components/schemas/MismatchItem"
+      },
+      "type": "array",
+      "title": "Items"
+     }
+    },
+    "type": "object",
+    "required": [
+     "meta",
+     "page",
+     "items"
+    ],
+    "title": "MismatchResponse"
+   },
+   "ModelMetric": {
+    "properties": {
+     "model": {
+      "type": "string",
+      "enum": [
+       "LR",
+       "NB",
+       "SVM",
+       "B0"
+      ],
+      "title": "Model"
+     },
+     "params": {
+      "type": "string",
+      "title": "Params"
+     },
+     "f1_macro3": {
+      "type": "number",
+      "title": "F1 Macro3"
+     },
+     "f1_neg": {
+      "type": "number",
+      "title": "F1 Neg"
+     },
+     "f1_neu": {
+      "type": "number",
+      "title": "F1 Neu"
+     },
+     "f1_pos": {
+      "type": "number",
+      "title": "F1 Pos"
+     },
+     "acc5": {
+      "type": "number",
+      "title": "Acc5"
+     },
+     "mae": {
+      "type": "number",
+      "title": "Mae"
+     },
+     "fit_seconds": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Fit Seconds"
+     },
+     "selected": {
+      "type": "boolean",
+      "title": "Selected",
+      "default": false
+     },
+     "prec_neg": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Prec Neg"
+     },
+     "rec_neg": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Rec Neg"
+     },
+     "acc3": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Acc3"
+     }
+    },
+    "type": "object",
+    "required": [
+     "model",
+     "params",
+     "f1_macro3",
+     "f1_neg",
+     "f1_neu",
+     "f1_pos",
+     "acc5",
+     "mae"
+    ],
+    "title": "ModelMetric"
+   },
+   "ModelMetricsResponse": {
+    "properties": {
+     "meta": {
+      "$ref": "#/components/schemas/Meta"
+     },
+     "split": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Split",
+      "examples": [
+       {
+        "n_dataset": 393890,
+        "n_used": 100000,
+        "random_state": 42,
+        "sampled": true,
+        "stratify": "score",
+        "test": 20000,
+        "train": 80000
+       }
+      ]
+     },
+     "models": {
+      "items": {
+       "$ref": "#/components/schemas/ModelMetric"
+      },
+      "type": "array",
+      "title": "Models"
+     },
+     "confusion3": {
+      "items": {
+       "items": {
+        "type": "integer"
+       },
+       "type": "array"
+      },
+      "type": "array",
+      "title": "Confusion3"
+     },
+     "confusion5": {
+      "items": {
+       "items": {
+        "type": "integer"
+       },
+       "type": "array"
+      },
+      "type": "array",
+      "title": "Confusion5"
+     },
+     "selected": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Selected"
+     },
+     "trained_at": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Trained At"
+     },
+     "vectorizer": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Vectorizer"
+     },
+     "n_mismatch": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "N Mismatch"
+     },
+     "time_check": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Time Check",
+      "description": "Kiểm tra theo thời gian: LR học trên dữ liệu trước năm cuối, kiểm tra trên năm cuối",
+      "examples": [
+       {
+        "f1_macro3": 0.705,
+        "gap": 0.009,
+        "n_test": 20000,
+        "n_train": 80000,
+        "random_f1_macro3": 0.714,
+        "rule": "học trên đánh giá trước 2012-01-01, kiểm tra trên đánh giá từ 2012-01-01"
+       }
+      ]
+     },
+     "reference": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Reference",
+      "description": "Kết quả notebook 02 trên bộ đầy đủ (chỉ có khi dữ liệu là bộ đầy đủ 393.890 đánh giá)"
+     }
+    },
+    "type": "object",
+    "required": [
+     "meta",
+     "split",
+     "models",
+     "confusion3",
+     "confusion5"
+    ],
+    "title": "ModelMetricsResponse"
+   },
+   "MonthPoint": {
+    "properties": {
+     "month": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}$",
+      "title": "Month"
+     },
+     "n": {
+      "type": "integer",
+      "title": "N"
+     },
+     "avg_score": {
+      "type": "number",
+      "title": "Avg Score"
+     },
+     "neg_rate": {
+      "type": "number",
+      "title": "Neg Rate"
+     },
+     "sat_index": {
+      "type": "number",
+      "title": "Sat Index"
+     }
+    },
+    "type": "object",
+    "required": [
+     "month",
+     "n",
+     "avg_score",
+     "neg_rate",
+     "sat_index"
+    ],
+    "title": "MonthPoint"
+   },
+   "Page": {
+    "properties": {
+     "page": {
+      "type": "integer",
+      "title": "Page",
+      "default": 1
+     },
+     "page_size": {
+      "type": "integer",
+      "title": "Page Size",
+      "default": 20
+     },
+     "total": {
+      "type": "integer",
+      "title": "Total"
+     }
+    },
+    "type": "object",
+    "required": [
+     "total"
+    ],
+    "title": "Page"
+   },
+   "PredictRequest": {
+    "properties": {
+     "text": {
+      "type": "string",
+      "maxLength": 5000,
+      "minLength": 1,
+      "title": "Text",
+      "examples": [
+       "The coffee arrived stale and the box was crushed. Very disappointed."
+      ]
+     },
+     "summary": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 300
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Summary",
+      "examples": [
+       "Stale coffee"
+      ]
+     },
+     "product_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Product Id",
+      "examples": [
+       "B007JFMH8M"
+      ]
+     }
+    },
+    "type": "object",
+    "required": [
+     "text"
+    ],
+    "title": "PredictRequest"
+   },
+   "PredictResponse": {
+    "properties": {
+     "pred_star": {
+      "type": "integer",
+      "maximum": 5.0,
+      "minimum": 1.0,
+      "title": "Pred Star"
+     },
+     "proba": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "type": "object",
+      "title": "Proba",
+      "description": "Xác suất từng mức sao, khóa '1'…'5'"
+     },
+     "sentiment": {
+      "type": "string",
+      "enum": [
+       "neg",
+       "neu",
+       "pos"
+      ],
+      "title": "Sentiment"
+     },
+     "sentiment_proba": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "type": "object",
+      "title": "Sentiment Proba"
+     },
+     "satisfaction_index": {
+      "type": "number",
+      "maximum": 100.0,
+      "minimum": 0.0,
+      "title": "Satisfaction Index",
+      "description": "(Σ k·P(k) − 1) / 4 × 100"
+     },
+     "tokens": {
+      "items": {
+       "$ref": "#/components/schemas/TokenWeight"
+      },
+      "type": "array",
+      "title": "Tokens"
+     },
+     "topic": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/TopicRef"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Chỉ có khi cảm xúc là Tiêu cực (FR-15)"
+     },
+     "suggestion": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Suggestion",
+      "description": "Gợi ý hành động theo chủ đề (FR-16)"
+     },
+     "latency_ms": {
+      "type": "number",
+      "title": "Latency Ms"
+     },
+     "known_token_ratio": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Known Token Ratio",
+      "description": "Tỷ lệ từ của văn bản có trong từ điển mô hình"
+     },
+     "note": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Note",
+      "description": "Cảnh báo khi văn bản ít từ mô hình đã biết (ví dụ không phải tiếng Anh)"
+     },
+     "model_info": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Model Info",
+      "description": "Mô hình đã dùng, F1-macro, số đánh giá huấn luyện, dataset_version"
+     }
+    },
+    "type": "object",
+    "required": [
+     "pred_star",
+     "proba",
+     "sentiment",
+     "sentiment_proba",
+     "satisfaction_index",
+     "tokens",
+     "latency_ms"
+    ],
+    "title": "PredictResponse"
+   },
+   "ProductRow": {
+    "properties": {
+     "product_id": {
+      "type": "string",
+      "title": "Product Id"
+     },
+     "n_reviews": {
+      "type": "integer",
+      "title": "N Reviews"
+     },
+     "avg_score": {
+      "type": "number",
+      "title": "Avg Score"
+     },
+     "neg_rate": {
+      "type": "number",
+      "title": "Neg Rate"
+     },
+     "n_3m": {
+      "type": "integer",
+      "title": "N 3M"
+     },
+     "avg_3m": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Avg 3M"
+     },
+     "delta": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Delta"
+     },
+     "risk_level": {
+      "type": "string",
+      "enum": [
+       "high",
+       "medium",
+       "low",
+       "insufficient"
+      ],
+      "title": "Risk Level"
+     },
+     "reason": {
+      "type": "string",
+      "title": "Reason",
+      "default": ""
+     },
+     "signal": {
+      "anyOf": [
+       {
+        "type": "string",
+        "enum": [
+         "decline",
+         "negative",
+         ""
+        ]
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Signal",
+      "description": "decline: điểm TB đang giảm; negative: tiêu cực cao kéo dài, điểm không giảm"
+     },
+     "forecastable": {
+      "type": "boolean",
+      "title": "Forecastable"
+     },
+     "n_prev_3m": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "N Prev 3M"
+     },
+     "avg_prev_3m": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Avg Prev 3M"
+     },
+     "neg_rate_3m": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Neg Rate 3M"
+     },
+     "n_active_months": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "N Active Months"
+     },
+     "first_month": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "First Month"
+     },
+     "last_month": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Last Month"
+     }
+    },
+    "type": "object",
+    "required": [
+     "product_id",
+     "n_reviews",
+     "avg_score",
+     "neg_rate",
+     "n_3m",
+     "avg_3m",
+     "delta",
+     "risk_level",
+     "forecastable"
+    ],
+    "title": "ProductRow"
+   },
+   "ProductsResponse": {
+    "properties": {
+     "meta": {
+      "$ref": "#/components/schemas/Meta"
+     },
+     "page": {
+      "$ref": "#/components/schemas/Page"
+     },
+     "items": {
+      "items": {
+       "$ref": "#/components/schemas/ProductRow"
+      },
+      "type": "array",
+      "title": "Items"
+     },
+     "counts": {
+      "anyOf": [
+       {
+        "additionalProperties": {
+         "type": "integer"
+        },
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Counts",
+      "description": "Số sản phẩm theo mức rủi ro"
+     },
+     "as_of": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "As Of"
+     },
+     "backtest": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Backtest",
+      "description": "Kiểm tra ngược quy tắc: gắn mức tại 6 và 3 tháng trước, tỷ lệ tiêu cực 3 tháng tiếp theo theo từng mức"
+     }
+    },
+    "type": "object",
+    "required": [
+     "meta",
+     "page",
+     "items"
+    ],
+    "title": "ProductsResponse"
+   },
+   "QualityResponse": {
+    "properties": {
+     "meta": {
+      "$ref": "#/components/schemas/Meta"
+     },
+     "n_rows": {
+      "type": "integer",
+      "title": "N Rows"
+     },
+     "n_columns": {
+      "type": "integer",
+      "title": "N Columns"
+     },
+     "n_duplicates": {
+      "type": "integer",
+      "title": "N Duplicates"
+     },
+     "n_helpfulness_invalid": {
+      "type": "integer",
+      "title": "N Helpfulness Invalid"
+     },
+     "missing_by_column": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "type": "object",
+      "title": "Missing By Column"
+     },
+     "time_min": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Time Min"
+     },
+     "time_max": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Time Max"
+     },
+     "file_name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "File Name"
+     },
+     "n_clean": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "N Clean"
+     },
+     "clean_log": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "type": "object",
+      "title": "Clean Log",
+      "description": "Số dòng bị loại theo từng quy tắc R1–R7"
+     },
+     "preview": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "type": "array",
+      "title": "Preview",
+      "description": "20 dòng đầu (đã bỏ ProfileName)"
+     }
+    },
+    "type": "object",
+    "required": [
+     "meta",
+     "n_rows",
+     "n_columns",
+     "n_duplicates",
+     "n_helpfulness_invalid",
+     "missing_by_column",
+     "time_min",
+     "time_max",
+     "clean_log",
+     "preview"
+    ],
+    "title": "QualityResponse"
+   },
+   "ResetResponse": {
+    "properties": {
+     "status": {
+      "type": "string",
+      "const": "reset",
+      "title": "Status",
+      "default": "reset"
+     },
+     "removed": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Removed",
+      "examples": [
+       [
+        "data/processed/*",
+        "models/*.joblib",
+        "cache/ai_insights.json"
+       ]
+      ]
+     }
+    },
+    "type": "object",
+    "required": [
+     "removed"
+    ],
+    "title": "ResetResponse"
+   },
+   "SatisfactionResponse": {
+    "properties": {
+     "meta": {
+      "$ref": "#/components/schemas/Meta"
+     },
+     "scope": {
+      "type": "string",
+      "enum": [
+       "all",
+       "product"
+      ],
+      "title": "Scope"
+     },
+     "product_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Product Id"
+     },
+     "series": {
+      "items": {
+       "$ref": "#/components/schemas/MonthPoint"
+      },
+      "type": "array",
+      "title": "Series"
+     }
+    },
+    "type": "object",
+    "required": [
+     "meta",
+     "scope",
+     "series"
+    ],
+    "title": "SatisfactionResponse"
+   },
+   "Solution": {
+    "properties": {
+     "cause_index": {
+      "type": "integer",
+      "title": "Cause Index"
+     },
+     "action": {
+      "type": "string",
+      "title": "Action"
+     },
+     "priority": {
+      "type": "string",
+      "enum": [
+       "cao",
+       "trung bình",
+       "thấp"
+      ],
+      "title": "Priority"
+     },
+     "kpi": {
+      "type": "string",
+      "title": "Kpi"
+     }
+    },
+    "type": "object",
+    "required": [
+     "cause_index",
+     "action",
+     "priority",
+     "kpi"
+    ],
+    "title": "Solution"
+   },
+   "TokenWeight": {
+    "properties": {
+     "token": {
+      "type": "string",
+      "title": "Token"
+     },
+     "weight": {
+      "type": "number",
+      "title": "Weight",
+      "description": "> 0 kéo số sao lên, < 0 kéo xuống"
+     }
+    },
+    "type": "object",
+    "required": [
+     "token",
+     "weight"
+    ],
+    "title": "TokenWeight"
+   },
+   "Topic": {
+    "properties": {
+     "topic_id": {
+      "type": "integer",
+      "title": "Topic Id"
+     },
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "key": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Key"
+     },
+     "keywords": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "maxItems": 10,
+      "title": "Keywords"
+     },
+     "n_reviews": {
+      "type": "integer",
+      "title": "N Reviews"
+     },
+     "share": {
+      "type": "number",
+      "title": "Share"
+     },
+     "suggestion": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Suggestion"
+     },
+     "samples": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "type": "array",
+      "title": "Samples",
+      "description": "3 đánh giá mẫu: review_id, score, summary, text"
+     },
+     "trend": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "type": "array",
+      "title": "Trend",
+      "description": "[{month, share}] tỷ trọng chủ đề theo tháng"
+     }
+    },
+    "type": "object",
+    "required": [
+     "topic_id",
+     "name",
+     "keywords",
+     "n_reviews",
+     "share",
+     "samples",
+     "trend"
+    ],
+    "title": "Topic"
+   },
+   "TopicRef": {
+    "properties": {
+     "topic_id": {
+      "type": "integer",
+      "title": "Topic Id"
+     },
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "weight": {
+      "type": "number",
+      "title": "Weight"
+     }
+    },
+    "type": "object",
+    "required": [
+     "topic_id",
+     "name",
+     "weight"
+    ],
+    "title": "TopicRef"
+   },
+   "TopicsResponse": {
+    "properties": {
+     "meta": {
+      "$ref": "#/components/schemas/Meta"
+     },
+     "model": {
+      "type": "string",
+      "title": "Model",
+      "examples": [
+       "NMF k=9"
+      ]
+     },
+     "topics": {
+      "items": {
+       "$ref": "#/components/schemas/Topic"
+      },
+      "type": "array",
+      "title": "Topics"
+     },
+     "product_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Product Id"
+     },
+     "n_negative": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "N Negative"
+     }
+    },
+    "type": "object",
+    "required": [
+     "meta",
+     "model",
+     "topics"
+    ],
+    "title": "TopicsResponse"
+   },
+   "UploadAccepted": {
+    "properties": {
+     "job_id": {
+      "type": "string",
+      "title": "Job Id",
+      "examples": [
+       "job_20261031_0001"
+      ]
+     },
+     "dataset_version": {
+      "type": "string",
+      "title": "Dataset Version"
+     },
+     "file_name": {
+      "type": "string",
+      "title": "File Name",
+      "examples": [
+       "Reviews.csv"
+      ]
+     },
+     "n_rows_raw": {
+      "type": "integer",
+      "title": "N Rows Raw",
+      "examples": [
+       568454
+      ]
+     },
+     "validation": {
+      "$ref": "#/components/schemas/ValidationResult"
+     }
+    },
+    "type": "object",
+    "required": [
+     "job_id",
+     "dataset_version",
+     "file_name",
+     "n_rows_raw",
+     "validation"
+    ],
+    "title": "UploadAccepted"
+   },
+   "ValidationError": {
+    "properties": {
+     "loc": {
+      "items": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "integer"
+        }
+       ]
+      },
+      "type": "array",
+      "title": "Location"
+     },
+     "msg": {
+      "type": "string",
+      "title": "Message"
+     },
+     "type": {
+      "type": "string",
+      "title": "Error Type"
+     }
+    },
+    "type": "object",
+    "required": [
+     "loc",
+     "msg",
+     "type"
+    ],
+    "title": "ValidationError"
+   },
+   "ValidationResult": {
+    "properties": {
+     "ok": {
+      "type": "boolean",
+      "title": "Ok"
+     },
+     "errors": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "type": "array",
+      "title": "Errors",
+      "default": []
+     },
+     "warnings": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "type": "array",
+      "title": "Warnings",
+      "default": []
+     }
+    },
+    "type": "object",
+    "required": [
+     "ok"
+    ],
+    "title": "ValidationResult"
+   }
+  }
+ }
+}

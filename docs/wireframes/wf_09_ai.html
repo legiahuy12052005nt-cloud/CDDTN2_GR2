@@ -1,0 +1,35 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box} body{margin:0;font-family:'DejaVu Sans',sans-serif;font-size:13px;color:#222;background:#fff}
+.frame{width:1120px;border:2px solid #333;border-radius:10px;overflow:hidden;position:relative;background:#fafafa}
+.top{height:46px;background:#2b2b2b;color:#fff;display:flex;align-items:center;padding:0 16px;gap:14px}
+.top b{font-size:15px} .badge{background:#444;border-radius:12px;padding:3px 10px;font-size:11.5px;color:#ddd}
+.top .sp{flex:1} .btn{border:1.5px solid #555;border-radius:6px;padding:5px 12px;background:#fff;font-size:12px;display:inline-block}
+.btn.p{background:#2a78d6;border-color:#2a78d6;color:#fff} .top .btn{background:#3a3a3a;color:#eee;border-color:#666}
+.tabs{display:flex;gap:2px;background:#e6e6e6;padding:6px 10px 0} .tab{padding:7px 12px;border-radius:6px 6px 0 0;font-size:12px;color:#555;background:#efefef}
+.tab.on{background:#fafafa;color:#111;font-weight:bold;border:1px solid #ccc;border-bottom:none}
+.body{padding:18px 18px 70px 22px} .row{display:flex;gap:12px;margin-bottom:12px} .col{flex:1}
+.card{background:#fff;border:1.5px solid #bbb;border-radius:8px;padding:10px 12px;position:relative}
+.card h4{margin:0 0 8px;font-size:13px} .kpi .v{font-size:22px;font-weight:bold} .kpi .l{font-size:11.5px;color:#666}
+.ph{background:repeating-linear-gradient(45deg,#eee,#eee 8px,#f6f6f6 8px,#f6f6f6 16px);border:1px dashed #aaa;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#777;font-size:12px;text-align:center;padding:6px}
+table{border-collapse:collapse;width:100%;font-size:11.5px} th{background:#e9e9e9;text-align:left;padding:5px 6px;border:1px solid #ccc} td{padding:4px 6px;border:1px solid #ddd;background:#fff}
+.inp{border:1.5px solid #999;border-radius:6px;background:#fff;padding:6px 8px;color:#888;font-size:12px}
+.ann{position:absolute;width:24px;height:24px;border-radius:50%;background:#eb6834;color:#fff;font-weight:bold;font-size:13px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 3px #fff;z-index:5}
+.risk{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:bold}
+.hi{background:#fde2e2;color:#a61b1b} .me{background:#fff1d0;color:#8a5a00} .lo{background:#e3eefc;color:#1c4f95}
+.bar{height:12px;background:#2a78d6;border-radius:3px} .bar.r{background:#e34948} .chip{display:inline-block;border:1px solid #aaa;border-radius:12px;padding:2px 8px;margin:2px;font-size:11px;background:#fff}
+.fab{position:absolute;right:18px;bottom:16px;width:48px;height:48px;border-radius:50%;background:#2a78d6;color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.muted{color:#777;font-size:11.5px} .neg{background:#fbd5d5} .pos{background:#d6e6fb}
+.step{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px} .dot{width:14px;height:14px;border-radius:50%;border:2px solid #999}
+.dot.d{background:#1baf7a;border-color:#1baf7a} .dot.r{background:#fff;border-color:#2a78d6;border-width:4px}
+</style></head><body><div class="frame"><div class="top"><b>FoodReview Insight</b><span class="badge">Dữ liệu: Reviews.csv · 393.890 đánh giá sạch · đến 2012-09</span><span class="sp"></span><span class="btn">Đổi file</span></div><div class="tabs"><div class="tab">Tổng quan</div><div class="tab">Phân tích (EDA)</div><div class="tab">Mô hình ML</div><div class="tab">Tự nhập dự đoán</div><div class="tab">Sản phẩm & cảnh báo</div><div class="tab">Chủ đề phàn nàn</div><div class="tab">Dự báo</div><div class="tab on">Trợ lý AI</div><div class="tab">Báo cáo</div></div><div class="body">
+<div class="card" style="margin-bottom:12px;display:flex;gap:10px;align-items:center"><b>Phân tích</b><span class="inp">○ Sản phẩm ◉ Chủ đề</span><span class="inp" style="width:280px">Hàng cũ, hết hạn, bao bì hỏng khi nhận ▾</span>
+<span class="btn p">Phân tích nguyên nhân</span><span class="btn">↻ Làm mới</span><span class="muted">Kết quả đã lưu đệm lúc 31/10/2026 09:00 · gemini-flash</span></div>
+<div class="row"><div class="col card"><h4>Nguyên nhân khách không hài lòng</h4>
+<div class="card" style="margin:4px 0"><span class="risk hi">Mức độ: cao</span> <b>[Nguyên nhân 1 – do Gemini sinh]</b><div class="muted">Mô tả ngắn … · Bằng chứng: <u>#id</u> <u>#id</u> <u>#id</u> (bấm để xem nguyên văn)</div></div>
+<div class="card" style="margin:4px 0"><span class="risk me">Mức độ: trung bình</span> <b>[Nguyên nhân 2]</b><div class="muted">Mô tả ngắn … · Bằng chứng: <u>#id</u> <u>#id</u></div></div>
+<div class="card" style="margin:4px 0"><span class="risk lo">Mức độ: thấp</span> <b>[Nguyên nhân 3]</b><div class="muted">Mô tả ngắn … · Bằng chứng: <u>#id</u></div></div></div>
+<div class="col card"><h4>Giải pháp đề xuất</h4><table><tr><th>Nguyên nhân</th><th>Hành động</th><th>Ưu tiên</th><th>Chỉ số theo dõi</th></tr><tr><td>1</td><td>…</td><td>cao</td><td>Tỷ lệ đánh giá nhắc tới bao bì</td></tr><tr><td>2</td><td>…</td><td>trung bình</td><td>…</td></tr><tr><td>3</td><td>…</td><td>thấp</td><td>…</td></tr></table></div></div>
+<div class="card" style="background:#f3f3f3"><span class="muted">ⓘ Nội dung do AI tạo từ ≤ 30 đánh giá tiêu biểu (đã bỏ UserId, ProfileName). Mọi nguyên nhân đều có ID bằng chứng đã được hệ thống kiểm tra tồn tại; 0 nguyên nhân bị loại. Khi Gemini lỗi, hiển thị kết quả đã lưu gần nhất.</span></div></div><div class=fab>💬</div></div><script>const M=[[".body .card", 0], [".body .card .muted", 0], [".body .card", 1], [".body .card", 5], [".body .card", 6]];const f=document.querySelector('.frame');const fr=f.getBoundingClientRect();
+M.forEach(([sel,i,side],k)=>{const el=document.querySelectorAll(sel)[i];if(!el)return;const r=el.getBoundingClientRect();
+const d=document.createElement('div');d.className='ann';d.textContent=k+1;d.style.left=Math.max(2,(side==='r'?r.right:r.left)-fr.left-12)+'px';
+d.style.top=Math.max(2,r.top-fr.top-12)+'px';f.appendChild(d);});</script></body></html>

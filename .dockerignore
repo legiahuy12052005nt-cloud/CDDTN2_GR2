@@ -1,0 +1,15 @@
+# Không đưa vào ngữ cảnh build Docker: dữ liệu lớn (gắn bằng volume), bí mật, môi trường cục bộ
+backend/.env
+backend/data/raw/
+backend/data/processed/
+backend/models/*.joblib
+backend/models/*.json
+backend/cache/*.json
+**/__pycache__/
+.venv/
+venv/
+frontend/node_modules/
+frontend/dist/
+notebooks/
+docs/
+.git/

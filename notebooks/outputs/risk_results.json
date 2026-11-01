@@ -1,0 +1,170 @@
+{
+ "eligible": 211,
+ "active_products_3m": 21239,
+ "delta_pct": {
+  "0.05": -0.723,
+  "0.1": -0.528,
+  "0.25": -0.27,
+  "0.5": 0.0,
+  "0.75": 0.227,
+  "0.9": 0.51
+ },
+ "neg_pct": {
+  "0.5": 0.105,
+  "0.75": 0.217,
+  "0.9": 0.412,
+  "0.95": 0.5
+ },
+ "overall_neg_rate_3m": 0.1604,
+ "levels_2012_09": {
+  "low": 135,
+  "high": 39,
+  "medium": 37
+ },
+ "top_high": [
+  {
+   "product_id": "B00507A02Q",
+   "n_3m": 60,
+   "avg_3m": 2.317,
+   "neg_rate_3m": 0.617,
+   "n_prev_3m": 13,
+   "avg_prev_3m": 3.846,
+   "delta": -1.529,
+   "risk_level": "high",
+   "reason": "điểm TB 3 tháng giảm 1,53 sao; tỷ lệ tiêu cực 62%"
+  },
+  {
+   "product_id": "B0031U9VI8",
+   "n_3m": 13,
+   "avg_3m": 2.769,
+   "neg_rate_3m": 0.538,
+   "n_prev_3m": 14,
+   "avg_prev_3m": 3.929,
+   "delta": -1.159,
+   "risk_level": "high",
+   "reason": "điểm TB 3 tháng giảm 1,16 sao; tỷ lệ tiêu cực 54%"
+  },
+  {
+   "product_id": "B0012NUVN0",
+   "n_3m": 20,
+   "avg_3m": 2.6,
+   "neg_rate_3m": 0.5,
+   "n_prev_3m": 17,
+   "avg_prev_3m": 3.706,
+   "delta": -1.106,
+   "risk_level": "high",
+   "reason": "điểm TB 3 tháng giảm 1,11 sao; tỷ lệ tiêu cực 50%"
+  },
+  {
+   "product_id": "B000WV153I",
+   "n_3m": 14,
+   "avg_3m": 3.857,
+   "neg_rate_3m": 0.143,
+   "n_prev_3m": 10,
+   "avg_prev_3m": 4.9,
+   "delta": -1.043,
+   "risk_level": "high",
+   "reason": "điểm TB 3 tháng giảm 1,04 sao"
+  },
+  {
+   "product_id": "B000E243RA",
+   "n_3m": 13,
+   "avg_3m": 3.0,
+   "neg_rate_3m": 0.462,
+   "n_prev_3m": 10,
+   "avg_prev_3m": 4.0,
+   "delta": -1.0,
+   "risk_level": "high",
+   "reason": "điểm TB 3 tháng giảm 1,00 sao; tỷ lệ tiêu cực 46%"
+  },
+  {
+   "product_id": "B004WTHCO2",
+   "n_3m": 15,
+   "avg_3m": 3.533,
+   "neg_rate_3m": 0.267,
+   "n_prev_3m": 17,
+   "avg_prev_3m": 4.471,
+   "delta": -0.937,
+   "risk_level": "high",
+   "reason": "điểm TB 3 tháng giảm 0,94 sao; tỷ lệ tiêu cực 27%"
+  },
+  {
+   "product_id": "B001T4UMM2",
+   "n_3m": 13,
+   "avg_3m": 4.077,
+   "neg_rate_3m": 0.231,
+   "n_prev_3m": 10,
+   "avg_prev_3m": 5.0,
+   "delta": -0.923,
+   "risk_level": "high",
+   "reason": "điểm TB 3 tháng giảm 0,92 sao"
+  },
+  {
+   "product_id": "B007PA32L2",
+   "n_3m": 17,
+   "avg_3m": 3.412,
+   "neg_rate_3m": 0.353,
+   "n_prev_3m": 11,
+   "avg_prev_3m": 4.273,
+   "delta": -0.861,
+   "risk_level": "high",
+   "reason": "điểm TB 3 tháng giảm 0,86 sao; tỷ lệ tiêu cực 35%"
+  }
+ ],
+ "backtest": [
+  {
+   "risk_level": "high",
+   "san_pham": 29,
+   "neg_now": 0.36,
+   "neg_next": 0.296,
+   "avg_now": 3.343,
+   "avg_next": 3.575,
+   "as_of": "2012-03"
+  },
+  {
+   "risk_level": "medium",
+   "san_pham": 37,
+   "neg_now": 0.228,
+   "neg_next": 0.179,
+   "avg_now": 3.817,
+   "avg_next": 4.03,
+   "as_of": "2012-03"
+  },
+  {
+   "risk_level": "low",
+   "san_pham": 109,
+   "neg_now": 0.082,
+   "neg_next": 0.134,
+   "avg_now": 4.423,
+   "avg_next": 4.249,
+   "as_of": "2012-03"
+  },
+  {
+   "risk_level": "high",
+   "san_pham": 31,
+   "neg_now": 0.348,
+   "neg_next": 0.253,
+   "avg_now": 3.434,
+   "avg_next": 3.805,
+   "as_of": "2012-06"
+  },
+  {
+   "risk_level": "medium",
+   "san_pham": 37,
+   "neg_now": 0.213,
+   "neg_next": 0.218,
+   "avg_now": 3.924,
+   "avg_next": 3.923,
+   "as_of": "2012-06"
+  },
+  {
+   "risk_level": "low",
+   "san_pham": 118,
+   "neg_now": 0.091,
+   "neg_next": 0.11,
+   "avg_now": 4.39,
+   "avg_next": 4.307,
+   "as_of": "2012-06"
+  }
+ ]
+}

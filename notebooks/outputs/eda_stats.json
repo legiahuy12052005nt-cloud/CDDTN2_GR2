@@ -1,0 +1,397 @@
+{
+ "raw": {
+  "md5": "c3c950ae0be8b0736477c89d052d33fd",
+  "md5_expected": "c3c950ae0be8b0736477c89d052d33fd",
+  "n_rows": 568454,
+  "n_cols": 10,
+  "read_seconds": 3.2,
+  "memory_mb": 467
+ },
+ "quality": {
+  "n_rows": 568454,
+  "n_duplicates": 174562,
+  "missing_by_column": {
+   "Id": 0,
+   "ProductId": 0,
+   "UserId": 0,
+   "ProfileName": 26,
+   "HelpfulnessNumerator": 0,
+   "HelpfulnessDenominator": 0,
+   "Score": 0,
+   "Time": 0,
+   "Summary": 27,
+   "Text": 0
+  },
+  "time_min": "1999-10-08",
+  "time_max": "2012-10-26",
+  "n_helpfulness_invalid": 2
+ },
+ "describe_raw": {
+  "HelpfulnessNumerator": {
+   "count": 568454.0,
+   "mean": 1.74,
+   "std": 7.64,
+   "min": 0.0,
+   "25%": 0.0,
+   "50%": 0.0,
+   "75%": 2.0,
+   "max": 866.0
+  },
+  "HelpfulnessDenominator": {
+   "count": 568454.0,
+   "mean": 2.23,
+   "std": 8.29,
+   "min": 0.0,
+   "25%": 0.0,
+   "50%": 1.0,
+   "75%": 2.0,
+   "max": 923.0
+  },
+  "Score": {
+   "count": 568454.0,
+   "mean": 4.18,
+   "std": 1.31,
+   "min": 1.0,
+   "25%": 4.0,
+   "50%": 5.0,
+   "75%": 5.0,
+   "max": 5.0
+  }
+ },
+ "score_raw": {
+  "1": 52268,
+  "2": 29769,
+  "3": 42640,
+  "4": 80655,
+  "5": 363122
+ },
+ "duplicates": {
+  "rows_duplicate": 174562,
+  "rows_in_groups": 232461,
+  "groups_gt1": 57899,
+  "same_product_dup": 1205,
+  "group_size_counts": {
+   "1": 335993,
+   "2": 21809,
+   "3": 10885,
+   "4": 10277,
+   "5": 3786,
+   "6": 3548,
+   "7": 1889,
+   "8": 1303,
+   "9": 1517,
+   "10": 544,
+   "11": 879,
+   "12": 478,
+   "13": 13,
+   "14": 624,
+   "15": 38,
+   "16": 4,
+   "17": 69,
+   "18": 5,
+   "20": 31,
+   "21": 1,
+   "22": 3,
+   "23": 1,
+   "24": 2,
+   "25": 172,
+   "26": 2,
+   "27": 4,
+   "28": 5,
+   "30": 1,
+   "31": 2,
+   "34": 1,
+   "35": 1,
+   "38": 1,
+   "43": 1,
+   "45": 1,
+   "51": 1,
+   "199": 1
+  },
+  "groups_score_inconsistent": 74,
+  "leak_share_if_no_dedup": 0.3918
+ },
+ "clean_log": {
+  "n_raw": 568454,
+  "r1_invalid_score": 0,
+  "r2_invalid_time": 0,
+  "r3_empty_text": 0,
+  "r4_helpfulness_invalid": 2,
+  "r5_duplicates": 174562,
+  "r7_too_short": 0,
+  "n_clean": 393890
+ },
+ "meta": {
+  "n_reviews": 393890,
+  "n_products": 67612,
+  "n_users": 256059,
+  "date_min": "1999-10-08",
+  "date_max": "2012-10-26",
+  "last_full_month": "2012-09",
+  "last_month_complete": false
+ },
+ "timing": {
+  "clean_seconds": 20.2,
+  "save_seconds": 4.6,
+  "file_mb": 205
+ },
+ "score_clean": {
+  "1": 36302,
+  "2": 20801,
+  "3": 29768,
+  "4": 56086,
+  "5": 250933
+ },
+ "sentiment_clean": {
+  "pos": 307019,
+  "neg": 57103,
+  "neu": 29768
+ },
+ "score_mean_clean": 4.1794,
+ "by_year": {
+  "1999": {
+   "n": 4,
+   "avg": 5.0,
+   "neg": 0.0
+  },
+  "2000": {
+   "n": 17,
+   "avg": 4.7059,
+   "neg": 0.0588
+  },
+  "2001": {
+   "n": 8,
+   "avg": 3.75,
+   "neg": 0.25
+  },
+  "2002": {
+   "n": 33,
+   "avg": 4.7879,
+   "neg": 0.0303
+  },
+  "2003": {
+   "n": 99,
+   "avg": 4.4444,
+   "neg": 0.0707
+  },
+  "2004": {
+   "n": 445,
+   "avg": 4.5348,
+   "neg": 0.0674
+  },
+  "2005": {
+   "n": 1069,
+   "avg": 4.4967,
+   "neg": 0.0833
+  },
+  "2006": {
+   "n": 4748,
+   "avg": 4.298,
+   "neg": 0.1243
+  },
+  "2007": {
+   "n": 15778,
+   "avg": 4.3868,
+   "neg": 0.0999
+  },
+  "2008": {
+   "n": 23129,
+   "avg": 4.3438,
+   "neg": 0.1039
+  },
+  "2009": {
+   "n": 37891,
+   "avg": 4.2811,
+   "neg": 0.1195
+  },
+  "2010": {
+   "n": 58003,
+   "avg": 4.2144,
+   "neg": 0.1397
+  },
+  "2011": {
+   "n": 113487,
+   "avg": 4.138,
+   "neg": 0.153
+  },
+  "2012": {
+   "n": 139179,
+   "avg": 4.112,
+   "neg": 0.161
+  }
+ },
+ "monthly_threshold": {
+  "first_month_all_ge_700": "2007-01",
+  "n_2012_09": 15352,
+  "n_2012_10": 14555
+ },
+ "calendar_month_avg": {
+  "01": 4.185,
+  "02": 4.177,
+  "03": 4.175,
+  "04": 4.192,
+  "05": 4.197,
+  "06": 4.152,
+  "07": 4.168,
+  "08": 4.169,
+  "09": 4.173,
+  "10": 4.185,
+  "11": 4.203,
+  "12": 4.151
+ },
+ "n_words": {
+  "count": 393890.0,
+  "mean": 79.3,
+  "std": 76.3,
+  "min": 3.0,
+  "1%": 16.0,
+  "5%": 21.0,
+  "25%": 34.0,
+  "50%": 56.0,
+  "75%": 97.0,
+  "95%": 213.0,
+  "99%": 373.0,
+  "max": 3409.0
+ },
+ "n_words_by_score_median": {
+  "1": 61.0,
+  "2": 67.0,
+  "3": 70.0,
+  "4": 65.0,
+  "5": 52.0
+ },
+ "n_words_gt_1000": 125,
+ "html": {
+  "share_tag": 0.2592,
+  "share_br": 0.2514,
+  "share_link": 0.0198,
+  "share_entity": 0.0032
+ },
+ "products": {
+  "n": 67612,
+  "median_reviews": 2.0,
+  "mean_reviews": 5.83,
+  "max_reviews": 912,
+  "ge5": 17254,
+  "ge10": 8281,
+  "ge100": 351,
+  "share_reviews_ge10": 0.6318,
+  "buckets": [
+   {
+    "nhom": "1",
+    "san_pham": 28488,
+    "danh_gia": 28488
+   },
+   {
+    "nhom": "2–4",
+    "san_pham": 21870,
+    "danh_gia": 58112
+   },
+   {
+    "nhom": "5–9",
+    "san_pham": 8973,
+    "danh_gia": 58420
+   },
+   {
+    "nhom": "10–19",
+    "san_pham": 4809,
+    "danh_gia": 64083
+   },
+   {
+    "nhom": "20–49",
+    "san_pham": 2536,
+    "danh_gia": 73620
+   },
+   {
+    "nhom": "50–99",
+    "san_pham": 585,
+    "danh_gia": 40323
+   },
+   {
+    "nhom": "≥ 100",
+    "san_pham": 351,
+    "danh_gia": 70844
+   }
+  ],
+  "top10": {
+   "B007JFMH8M": 912,
+   "B002QWP89S": 630,
+   "B003B3OOPA": 622,
+   "B001EO5Q64": 566,
+   "B0013NUGDE": 558,
+   "B000KV61FC": 556,
+   "B000NMJWZO": 542,
+   "B000UBD88A": 542,
+   "B005K4Q37A": 541,
+   "B0090X8IPM": 530
+  }
+ },
+ "users": {
+  "n": 256059,
+  "share_one_review": 0.8032,
+  "max_reviews": 329,
+  "gt50": 113
+ },
+ "forecast_eligibility": {
+  "ge12_months": 4923,
+  "ge24_months": 1218,
+  "ge36_months": 389,
+  "ge48_months": 133
+ },
+ "helpfulness": {
+  "share_has_votes": 0.5313,
+  "ratio_by_score": {
+   "1": 0.551,
+   "2": 0.586,
+   "3": 0.637,
+   "4": 0.799,
+   "5": 0.876
+  },
+  "den_p99": 23.0,
+  "den_max": 923
+ },
+ "anomalies": {
+  "non_english_share_est": 0.0014,
+  "texts_shared_by_users": 44,
+  "rows_texts_shared": 89,
+  "summary_missing_raw": 27,
+  "profile_missing_raw": 26,
+  "year_lt_2004_rows": 161
+ },
+ "keywords": {
+  "neg": {
+   "not": 86.8,
+   "disappointed": 53.5,
+   "bad": 49.1,
+   "not buy": 48.8,
+   "money": 48.7,
+   "did not": 47.6,
+   "did": 45.7,
+   "waste": 42.8,
+   "return": 41.7,
+   "awful": 40.8,
+   "horrible": 40.7,
+   "terrible": 39.3,
+   "worst": 38.8,
+   "thought": 37.7,
+   "not recommend": 35.7
+  },
+  "pos": {
+   "great": 59.7,
+   "love": 42.7,
+   "best": 39.9,
+   "delicious": 34.4,
+   "perfect": 30.1,
+   "good": 29.7,
+   "favorite": 28.7,
+   "easy": 28.4,
+   "loves": 27.1,
+   "highly": 25.6,
+   "wonderful": 24.8,
+   "nice": 24.8,
+   "excellent": 24.5,
+   "add": 24.0,
+   "snack": 23.9
+  }
+ }
+}

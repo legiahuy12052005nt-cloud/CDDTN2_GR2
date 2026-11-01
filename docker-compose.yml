@@ -1,0 +1,20 @@
+services:
+  backend:
+    build: { context: ., dockerfile: Dockerfile.backend }
+    ports: ["8000:8000"]
+    env_file:
+      - path: backend/.env     # sao chép từ .env.example; không bắt buộc nếu chưa dùng trợ lý AI
+        required: false
+    volumes:
+      - ./backend/data:/app/backend/data      # dữ liệu gốc/trung gian không đóng gói vào image
+      - ./backend/models:/app/backend/models
+      - ./backend/cache:/app/backend/cache
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 15s
+      retries: 5
+  frontend:
+    build: { context: ., dockerfile: Dockerfile.frontend }
+    ports: ["5173:5173"]
+    environment: [BACKEND_URL=http://backend:8000]
+    depends_on: [backend]

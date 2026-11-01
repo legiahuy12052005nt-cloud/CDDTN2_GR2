@@ -1,0 +1,195 @@
+{
+ "series": {
+  "start": "2007-01",
+  "end": "2012-09",
+  "n_months": 69,
+  "train": 57,
+  "test": 12,
+  "min_n_per_month": 747
+ },
+ "holdout": [
+  {
+   "model": "ETS(A,Ad,N) – Holt giảm chấn",
+   "mae_star": 0.0244,
+   "mae_index": 0.61,
+   "rmse_star": 0.029,
+   "coverage95": 1.0
+  },
+  {
+   "model": "ETS(A,Ad,A) – có mùa vụ 12 tháng",
+   "mae_star": 0.0271,
+   "mae_index": 0.68,
+   "rmse_star": 0.0318,
+   "coverage95": 1.0
+  },
+  {
+   "model": "Drift (xu hướng tuyến tính)",
+   "mae_star": 0.0334,
+   "mae_index": 0.83,
+   "rmse_star": 0.0384,
+   "coverage95": NaN
+  },
+  {
+   "model": "ARIMA(0, 1, 1) – chọn theo AIC",
+   "mae_star": 0.0422,
+   "mae_index": 1.05,
+   "rmse_star": 0.0452,
+   "coverage95": 1.0
+  },
+  {
+   "model": "Trung bình 12 tháng gần nhất",
+   "mae_star": 0.0446,
+   "mae_index": 1.12,
+   "rmse_star": 0.0474,
+   "coverage95": NaN
+  },
+  {
+   "model": "Seasonal naive (cùng tháng năm trước)",
+   "mae_star": 0.0459,
+   "mae_index": 1.15,
+   "rmse_star": 0.0553,
+   "coverage95": NaN
+  },
+  {
+   "model": "Naive (giữ tháng trước)",
+   "mae_star": 0.0599,
+   "mae_index": 1.5,
+   "rmse_star": 0.062,
+   "coverage95": NaN
+  }
+ ],
+ "arima_order": [
+  0,
+  1,
+  1
+ ],
+ "best_model": "ETS(A,Ad,N) – Holt giảm chấn",
+ "beats_naive": true,
+ "ets_params": {
+  "smoothing_level": 0.2517,
+  "smoothing_trend": 0.0,
+  "damping_trend": 0.98,
+  "initial_level": 4.4138,
+  "initial_trend": -0.007
+ },
+ "rolling_1step_mae": {
+  "Naive": 0.0219,
+  "ETS(A,Ad,N)": 0.0171,
+  "ARIMA(0, 1, 1) – chọn theo AIC": 0.0176
+ },
+ "forecast_12m": {
+  "2012-10": {
+   "mean": 4.096,
+   "lo": 4.025,
+   "hi": 4.167,
+   "sat_index": 77.399,
+   "sat_lo": 75.622,
+   "sat_hi": 79.177
+  },
+  "2012-11": {
+   "mean": 4.093,
+   "lo": 4.02,
+   "hi": 4.167,
+   "sat_index": 77.334,
+   "sat_lo": 75.505,
+   "sat_hi": 79.163
+  },
+  "2012-12": {
+   "mean": 4.091,
+   "lo": 4.015,
+   "hi": 4.166,
+   "sat_index": 77.27,
+   "sat_lo": 75.387,
+   "sat_hi": 79.153
+  },
+  "2013-01": {
+   "mean": 4.088,
+   "lo": 4.011,
+   "hi": 4.166,
+   "sat_index": 77.208,
+   "sat_lo": 75.268,
+   "sat_hi": 79.147
+  },
+  "2013-02": {
+   "mean": 4.086,
+   "lo": 4.006,
+   "hi": 4.166,
+   "sat_index": 77.146,
+   "sat_lo": 75.149,
+   "sat_hi": 79.144
+  },
+  "2013-03": {
+   "mean": 4.083,
+   "lo": 4.001,
+   "hi": 4.166,
+   "sat_index": 77.086,
+   "sat_lo": 75.028,
+   "sat_hi": 79.144
+  },
+  "2013-04": {
+   "mean": 4.081,
+   "lo": 3.996,
+   "hi": 4.166,
+   "sat_index": 77.027,
+   "sat_lo": 74.907,
+   "sat_hi": 79.148
+  },
+  "2013-05": {
+   "mean": 4.079,
+   "lo": 3.991,
+   "hi": 4.166,
+   "sat_index": 76.97,
+   "sat_lo": 74.786,
+   "sat_hi": 79.154
+  },
+  "2013-06": {
+   "mean": 4.077,
+   "lo": 3.987,
+   "hi": 4.167,
+   "sat_index": 76.913,
+   "sat_lo": 74.664,
+   "sat_hi": 79.163
+  },
+  "2013-07": {
+   "mean": 4.074,
+   "lo": 3.982,
+   "hi": 4.167,
+   "sat_index": 76.858,
+   "sat_lo": 74.541,
+   "sat_hi": 79.174
+  },
+  "2013-08": {
+   "mean": 4.072,
+   "lo": 3.977,
+   "hi": 4.168,
+   "sat_index": 76.804,
+   "sat_lo": 74.419,
+   "sat_hi": 79.188
+  },
+  "2013-09": {
+   "mean": 4.07,
+   "lo": 3.972,
+   "hi": 4.168,
+   "sat_index": 76.75,
+   "sat_lo": 74.296,
+   "sat_hi": 79.205
+  }
+ },
+ "product_backtest": {
+  "n_products": 160,
+  "mae_naive": 0.9441,
+  "mae_mean_history": 0.7514,
+  "mae_ses": 0.7829,
+  "share_ses_beats_naive": 0.544
+ },
+ "product_backtest_test": {
+  "mean_diff_ses_minus_mean": 0.0315,
+  "bootstrap_ci95": [
+   -0.0013,
+   0.077
+  ],
+  "wilcoxon_p": 0.837,
+  "share_ses_beats_mean": 0.463
+ },
+ "n_products_eligible_full": 369
+}

@@ -1,0 +1,47 @@
+@import '@fontsource/be-vietnam-pro/400.css';
+@import '@fontsource/be-vietnam-pro/500.css';
+@import '@fontsource/be-vietnam-pro/600.css';
+@import '@fontsource/be-vietnam-pro/700.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { -webkit-font-smoothing: antialiased; }
+  body { @apply bg-canvas text-text font-sans text-[14px]; }
+  :focus-visible { outline: 2px solid #2a78d6; outline-offset: 2px; }
+  table { font-variant-numeric: tabular-nums; }
+}
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-1.5 h-9 px-3 rounded-lg border border-line bg-white text-[13px] font-medium text-ink hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed; }
+  .btn-primary { @apply border-primary bg-primary text-white hover:bg-primaryDark; }
+  .btn-ai { @apply border-ai bg-ai text-white hover:bg-[#4e3dc4]; }
+  .btn-ghost { @apply border-transparent bg-transparent hover:bg-slate-100; }
+  .input { @apply h-9 rounded-lg border border-line bg-white px-3 text-[13px] text-ink placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/30; }
+  .tbl { @apply w-full text-[13px]; }
+  .tbl th { @apply text-left font-medium text-muted text-[12px] px-3 py-2 border-b border-line bg-slate-50/70 whitespace-nowrap; }
+  .tbl td { @apply px-3 py-2 border-b border-slate-100 align-middle; }
+  .tbl tr.clickable { @apply cursor-pointer hover:bg-primarySoft/50; }
+  .chip { @apply inline-flex items-center gap-1 rounded-full border border-line bg-white px-2.5 py-1 text-[12.5px] text-text hover:border-primary/60 hover:text-primary; }
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+/* nội dung Markdown của trợ lý AI */
+.md { @apply text-[13.5px] leading-relaxed text-text; }
+.md p { @apply my-1.5; }
+.md ul { @apply list-disc pl-5 my-1.5; }
+.md ol { @apply list-decimal pl-5 my-1.5; }
+.md li { @apply my-0.5; }
+.md strong { @apply text-ink font-semibold; }
+.md h1, .md h2, .md h3 { @apply font-semibold text-ink mt-3 mb-1 text-[14.5px]; }
+.md code { @apply bg-slate-100 rounded px-1 py-0.5 text-[12.5px]; }
+.md pre { @apply bg-slate-900 text-slate-100 rounded-lg p-3 overflow-x-auto my-2 text-[12px]; }
+.md pre code { @apply bg-transparent p-0 text-slate-100; }
+/* bảng trong khung chat hẹp: khung bọc cuộn ngang, ô có bề rộng tối thiểu để chữ không bị bóp thành từng ký tự */
+.md .md-table { @apply my-2 overflow-x-auto max-w-full; }
+.md table { @apply text-[12.5px] border-collapse min-w-full; }
+.md th { @apply text-left bg-slate-50 font-medium px-2 py-1 border border-line whitespace-nowrap align-bottom; }
+.md td { @apply px-2 py-1 border border-line align-top min-w-[4.5rem]; }
+.md td:last-child { @apply min-w-[10rem]; }
+.md blockquote { @apply border-l-2 border-slate-300 pl-3 text-muted text-[12.5px] my-2; }
+.md a { @apply text-primary underline underline-offset-2; }

@@ -1,0 +1,16 @@
+# Bí mật và dữ liệu lớn – không đưa lên GitHub (NFR-05, báo cáo buổi 3 mục 5.2)
+backend/.env
+backend/data/raw/
+backend/data/processed/
+# mẫu 100.000 dòng: kèm trong gói zip nộp bài, không đưa lên GitHub
+backend/data/sample/*.csv
+backend/models/*.joblib
+backend/models/*.json
+backend/cache/*.json
+# Môi trường
+__pycache__/
+.venv/
+venv/
+node_modules/
+frontend/dist/
+.ipynb_checkpoints/

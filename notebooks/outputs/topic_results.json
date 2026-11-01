@@ -1,0 +1,380 @@
+{
+ "n_docs": 57103,
+ "k_selection": [
+  {
+   "k": 5,
+   "npmi": 0.2127,
+   "diversity": 0.96,
+   "sec": 1.1
+  },
+  {
+   "k": 6,
+   "npmi": 0.2275,
+   "diversity": 0.967,
+   "sec": 1.3
+  },
+  {
+   "k": 7,
+   "npmi": 0.2317,
+   "diversity": 0.971,
+   "sec": 2.2
+  },
+  {
+   "k": 8,
+   "npmi": 0.2345,
+   "diversity": 0.975,
+   "sec": 2.3
+  },
+  {
+   "k": 9,
+   "npmi": 0.2406,
+   "diversity": 0.978,
+   "sec": 1.7
+  },
+  {
+   "k": 10,
+   "npmi": 0.2312,
+   "diversity": 0.97,
+   "sec": 2.7
+  },
+  {
+   "k": 11,
+   "npmi": 0.2306,
+   "diversity": 0.964,
+   "sec": 3.1
+  },
+  {
+   "k": 12,
+   "npmi": 0.2356,
+   "diversity": 0.958,
+   "sec": 2.8
+  }
+ ],
+ "k_chosen": 9,
+ "lda_compare": {
+  "npmi": 0.1232,
+  "sec": 77.9,
+  "nmf_npmi": 0.2406
+ },
+ "topics": [
+  {
+   "topic_id": 0,
+   "name": "Hương vị, mùi, kết cấu không ngon",
+   "name_en": "Taste & texture",
+   "keywords": [
+    "taste",
+    "flavor",
+    "tastes",
+    "tasted",
+    "water",
+    "texture",
+    "stuff",
+    "love",
+    "little",
+    "sauce"
+   ],
+   "n_reviews": 11494,
+   "share": 0.2013,
+   "sample_review_ids": [
+    319358,
+    149643,
+    307607
+   ],
+   "sample_summaries": [
+    "really weired taste",
+    "horrible taste",
+    "not enouth flavor"
+   ]
+  },
+  {
+   "topic_id": 1,
+   "name": "Cà phê nhạt/đắng, viên K-cup",
+   "name_en": "Coffee strength & pods",
+   "keywords": [
+    "coffee",
+    "cup",
+    "cups",
+    "weak",
+    "instant",
+    "roast",
+    "instant coffee",
+    "cup coffee",
+    "bitter",
+    "pods"
+   ],
+   "n_reviews": 5479,
+   "share": 0.0959,
+   "sample_review_ids": [
+    104753,
+    104754,
+    296066
+   ],
+   "sample_summaries": [
+    "instant coffee in a k cup!",
+    "This coffee is horrible!!!!!!!!!!!!!",
+    "Disappointed"
+   ]
+  },
+  {
+   "topic_id": 2,
+   "name": "Hàng cũ, hết hạn, bao bì hỏng khi nhận",
+   "name_en": "Stale / expired / damaged on arrival",
+   "keywords": [
+    "box",
+    "received",
+    "stale",
+    "date",
+    "arrived",
+    "package",
+    "bag",
+    "opened",
+    "packaging",
+    "expiration"
+   ],
+   "n_reviews": 11408,
+   "share": 0.1998,
+   "sample_review_ids": [
+    272162,
+    53944,
+    35617
+   ],
+   "sample_summaries": [
+    "Bad product,Bad customer service!",
+    "Don't buy it.",
+    "NO EXPIRATION DATE"
+   ]
+  },
+  {
+   "topic_id": 3,
+   "name": "Trà: vị nhạt, túi lọc",
+   "name_en": "Tea quality",
+   "keywords": [
+    "tea",
+    "green",
+    "green tea",
+    "teas",
+    "bags",
+    "tea bags",
+    "tea tea",
+    "cup",
+    "drink",
+    "black"
+   ],
+   "n_reviews": 3549,
+   "share": 0.0622,
+   "sample_review_ids": [
+    441695,
+    354966,
+    113289
+   ],
+   "sample_summaries": [
+    "This Is Not From Tavalon Tea. This Tea Was Clustered.",
+    "Good green tea, but no chai.......",
+    "A little on the weak side"
+   ]
+  },
+  {
+   "topic_id": 4,
+   "name": "Thức ăn thú cưng: xuất xứ, làm thú bệnh",
+   "name_en": "Pet food safety",
+   "keywords": [
+    "dog",
+    "food",
+    "dogs",
+    "eat",
+    "treats",
+    "cat",
+    "cats",
+    "china",
+    "dog food",
+    "chicken"
+   ],
+   "n_reviews": 7999,
+   "share": 0.1401,
+   "sample_review_ids": [
+    59640,
+    349087,
+    421226
+   ],
+   "sample_summaries": [
+    "flatus",
+    "Dog had zero interest",
+    "ok dog food"
+   ]
+  },
+  {
+   "topic_id": 5,
+   "name": "Giá cao so với cửa hàng, phí giao hàng",
+   "name_en": "Price & shipping cost",
+   "keywords": [
+    "price",
+    "store",
+    "grocery",
+    "local",
+    "grocery store",
+    "expensive",
+    "99",
+    "worth",
+    "shipping",
+    "pay"
+   ],
+   "n_reviews": 6110,
+   "share": 0.107,
+   "sample_review_ids": [
+    473848,
+    99922,
+    208213
+   ],
+   "sample_summaries": [
+    "Gum, yes, price no!",
+    "a terrible price on these!",
+    "Overpriced on Amazon"
+   ]
+  },
+  {
+   "topic_id": 6,
+   "name": "Thành phần: đường, siro ngô, không tự nhiên",
+   "name_en": "Ingredients & sugar",
+   "keywords": [
+    "sugar",
+    "ingredients",
+    "syrup",
+    "corn",
+    "corn syrup",
+    "sweet",
+    "high",
+    "ingredient",
+    "natural",
+    "fructose"
+   ],
+   "n_reviews": 5343,
+   "share": 0.0936,
+   "sample_review_ids": [
+    504320,
+    513085,
+    564138
+   ],
+   "sample_summaries": [
+    "sugar, sugar and sugar",
+    "Sucralose in cereal?!",
+    "High Fructose Corn Syrup has recently been added to what was once an excellent product. Also the ingredients list. N"
+   ]
+  },
+  {
+   "topic_id": 7,
+   "name": "Sô-cô-la, bánh quy, bơ đậu phộng",
+   "name_en": "Chocolate & snacks",
+   "keywords": [
+    "chocolate",
+    "hot",
+    "bars",
+    "cookies",
+    "hot chocolate",
+    "bar",
+    "dark",
+    "butter",
+    "peanut",
+    "dark chocolate"
+   ],
+   "n_reviews": 3850,
+   "share": 0.0674,
+   "sample_review_ids": [
+    307394,
+    489902,
+    90051
+   ],
+   "sample_summaries": [
+    "NASTY!!!!!!",
+    "chocolate is like a rock!",
+    "Not even close to dark chocolate"
+   ]
+  },
+  {
+   "topic_id": 8,
+   "name": "Sản phẩm không gluten, bột làm bánh",
+   "name_en": "Gluten-free & baking",
+   "keywords": [
+    "free",
+    "gluten",
+    "gluten free",
+    "wheat",
+    "cookies",
+    "flour",
+    "bread",
+    "mix",
+    "sugar free",
+    "celiac"
+   ],
+   "n_reviews": 1869,
+   "share": 0.0327,
+   "sample_review_ids": [
+    127008,
+    229721,
+    206922
+   ],
+   "sample_summaries": [
+    "NOT Gluten Free",
+    "NOT gluten free",
+    "NOT GLUTEN FREE"
+   ]
+  }
+ ],
+ "no_topic": 2,
+ "trend_year": {
+  "2008": {
+   "0": 0.2238,
+   "1": 0.0632,
+   "2": 0.1897,
+   "3": 0.0711,
+   "4": 0.1468,
+   "5": 0.1027,
+   "6": 0.0865,
+   "7": 0.0657,
+   "8": 0.0503
+  },
+  "2009": {
+   "0": 0.2123,
+   "1": 0.0758,
+   "2": 0.184,
+   "3": 0.0694,
+   "4": 0.1261,
+   "5": 0.1089,
+   "6": 0.1193,
+   "7": 0.0672,
+   "8": 0.0371
+  },
+  "2010": {
+   "0": 0.1941,
+   "1": 0.0949,
+   "2": 0.1981,
+   "3": 0.0635,
+   "4": 0.1312,
+   "5": 0.1145,
+   "6": 0.0949,
+   "7": 0.0713,
+   "8": 0.0374
+  },
+  "2011": {
+   "0": 0.2045,
+   "1": 0.1042,
+   "2": 0.196,
+   "3": 0.0561,
+   "4": 0.1393,
+   "5": 0.1091,
+   "6": 0.0883,
+   "7": 0.0719,
+   "8": 0.0306
+  },
+  "2012": {
+   "0": 0.1948,
+   "1": 0.0997,
+   "2": 0.2042,
+   "3": 0.0649,
+   "4": 0.1486,
+   "5": 0.1032,
+   "6": 0.093,
+   "7": 0.0628,
+   "8": 0.0289
+  }
+ }
+}

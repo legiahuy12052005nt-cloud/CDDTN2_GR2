@@ -1,0 +1,8 @@
+model,mae_star,mae_index,rmse_star,coverage95
+"ETS(A,Ad,N) – Holt giảm chấn",0.0244,0.61,0.029,1.0
+"ETS(A,Ad,A) – có mùa vụ 12 tháng",0.0271,0.68,0.0318,1.0
+Drift (xu hướng tuyến tính),0.0334,0.83,0.0384,
+"ARIMA(0, 1, 1) – chọn theo AIC",0.0422,1.05,0.0452,1.0
+Trung bình 12 tháng gần nhất,0.0446,1.12,0.0474,
+Seasonal naive (cùng tháng năm trước),0.0459,1.15,0.0553,
+Naive (giữ tháng trước),0.0599,1.5,0.062,

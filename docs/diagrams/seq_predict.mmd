@@ -1,0 +1,25 @@
+sequenceDiagram
+    autonumber
+    actor S as Người bán
+    participant FE as React<br/>PredictTab
+    participant API as FastAPI<br/>router predict
+    participant MS as ModelService
+    participant TS as TopicService
+    S->>FE: Nhập nội dung,<br/>bấm Dự đoán
+    FE->>FE: Kiểm tra ô bắt buộc
+    FE->>API: POST /api/predict<br/>{text, summary?, product_id?}
+    alt Nội dung < 3 từ
+        API-->>FE: 422 TEXT_TOO_SHORT
+    else Chưa có mô hình
+        API-->>FE: 409 MODEL_NOT_READY
+    else Hợp lệ
+        API->>MS: predict(text, summary)
+        Note over MS: model_preprocess → TF-IDF<br/>→ LR.predict_proba
+        MS-->>API: P(1…5 sao),<br/>đóng góp từ = tfidf × w
+        opt Cảm xúc = Tiêu cực
+            API->>TS: transform(text)
+            TS-->>API: chủ đề gần nhất<br/>+ gợi ý (FR-16)
+        end
+        API-->>FE: 200 {pred_star, proba,<br/>sentiment, satisfaction_index,<br/>tokens, topic, latency_ms}
+        FE-->>S: Thẻ kết quả, tô màu từ,<br/>lưu lịch sử phiên (sessionStorage)
+    end
